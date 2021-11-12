@@ -1,5 +1,5 @@
 
--- db used : ms sql server 2019
+--db used : ms sql server 2019
 --drop any table if already exists
 DROP TABLE IF EXISTS dbo.address;
 DROP TABLE IF EXISTS dbo.account;
