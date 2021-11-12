@@ -1,14 +1,18 @@
 
 --db used : ms sql server 2019
 --drop any table if already exists
-DROP TABLE IF EXISTS dbo.address;
-DROP TABLE IF EXISTS dbo.account;
-DROP TABLE IF EXISTS dbo.transactions;
-DROP TABLE IF EXISTS dbo.account;
-DROP TABLE IF EXISTS dbo.payments;
-DROP TABLE IF EXISTS dbo.users;
-DROP TABLE IF EXISTS dbo.membership;
-DROP TABLE IF EXISTS dbo.roles;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS payments;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS membership;
+DROP TABLE IF EXISTS roles;
+
+create database bts;
+
+use bts;
 
 --create table queries
 CREATE TABLE roles
@@ -21,18 +25,18 @@ CREATE TABLE membership
 (
     id int PRIMARY KEY,
     name VARCHAR (30) NOT NULL,
-    commission_rate float NOT NULL,
+    commission_rate float NOT NULL
 );
 
 CREATE TABLE users
 (
     id int PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR DEFAULT NULL,
+    last_name VARCHAR(50) DEFAULT NULL,
     phone_number VARCHAR(12) DEFAULT NULL,
     cell_number VARCHAR(12) DEFAULT NULL,
     email VARCHAR(64) NOT NULL,
-    password VARCHAR NOT NULL,
+    password VARCHAR(15) NOT NULL,
     role_id int NOT NULL,
     member_id int NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id),
