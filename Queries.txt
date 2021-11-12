@@ -1,0 +1,84 @@
+
+-- db used : ms sql server 2019
+--drop any table if already exists
+DROP TABLE IF EXISTS dbo.address;
+DROP TABLE IF EXISTS dbo.account;
+DROP TABLE IF EXISTS dbo.transactions;
+DROP TABLE IF EXISTS dbo.account;
+DROP TABLE IF EXISTS dbo.payments;
+DROP TABLE IF EXISTS dbo.users;
+DROP TABLE IF EXISTS dbo.membership;
+DROP TABLE IF EXISTS dbo.roles;
+
+--create table queries
+CREATE TABLE roles
+(
+    id int PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE membership
+(
+    id int PRIMARY KEY,
+    name VARCHAR (30) NOT NULL,
+    commission_rate float NOT NULL,
+);
+
+CREATE TABLE users
+(
+    id int PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR DEFAULT NULL,
+    phone_number VARCHAR(12) DEFAULT NULL,
+    cell_number VARCHAR(12) DEFAULT NULL,
+    email VARCHAR(64) NOT NULL,
+    password VARCHAR NOT NULL,
+    role_id int NOT NULL,
+    member_id int NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES roles (id),
+    FOREIGN KEY (member_id) REFERENCES membership (id)
+);
+
+CREATE TABLE address
+(
+    id int PRIMARY KEY,
+    user_id int NOT NULL,
+    street VARCHAR (100) NOT NULL,
+    city VARCHAR (100) NOT NULL,
+    state VARCHAR (100) NOT NULL,
+    zip_code int NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE account
+(
+    id int PRIMARY KEY,
+    user_id int NOT NULL,
+    bitcoin float(50) DEFAULT 0.0,
+    balance float(50) DEFAULT 0.0,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE transactions
+(
+    id int PRIMARY KEY,
+    time datetime NULL,
+    amount float(50) NOT NULL,
+    commision_rate float NOT NULL,
+    commision_type VARCHAR(30) NOT NULL,
+    user_id int NOT NULL,
+    type VARCHAR(50) DEFAULT NULL,
+    status int DEFAULT 0,
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE payments
+(
+    id int PRIMARY KEY,
+    user_id int NOT NULL,
+    amount float(50) DEFAULT 0.0,
+    time datetime NULL,
+    trader_id int NOT NULL,
+    status int DEFAULT 0,
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);
