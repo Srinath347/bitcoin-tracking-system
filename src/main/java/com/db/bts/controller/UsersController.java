@@ -27,10 +27,8 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> save(@RequestBody @NonNull UserModel user) throws Exception {
-        System.out.println("here1");
-        System.out.println(user.toString());
-        User user1 = userService.save(new User());
+    public ResponseEntity<User> save(@RequestBody @NonNull User user) throws Exception {
+        User user1 = userService.save(user);
         return ResponseEntity.ok().body(user1);
     }
 }

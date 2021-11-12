@@ -1,5 +1,5 @@
 
---db used : ms sql server 2019
+--db used : MYSQL
 --drop any table if already exists
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS account;

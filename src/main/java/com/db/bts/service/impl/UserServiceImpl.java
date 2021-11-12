@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) throws Exception {
-        System.out.println("here2");
         return userRepository.save(user);
     }
 }
