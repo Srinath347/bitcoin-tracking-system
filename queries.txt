@@ -37,10 +37,21 @@ CREATE TABLE users
     cell_number VARCHAR(12) DEFAULT NULL,
     email VARCHAR(64) NOT NULL,
     password VARCHAR(15) NOT NULL,
-    role_id int NOT NULL,
     member_id int NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles (id),
     FOREIGN KEY (member_id) REFERENCES membership (id)
+);
+
+CREATE TABLE admins
+(
+    id int PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) DEFAULT NULL,
+    phone_number VARCHAR(12) DEFAULT NULL,
+    cell_number VARCHAR(12) DEFAULT NULL,
+    email VARCHAR(64) NOT NULL,
+    password VARCHAR(15) NOT NULL,
+    role_id int NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
 CREATE TABLE address
@@ -86,3 +97,28 @@ CREATE TABLE payments
     status int DEFAULT 0,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+
+Insert into roles values (1, "manager");
+Insert into roles values (2, "trader");
+Insert into roles values (3, "client");
+
+Insert into membership values (1, "Silver", 5);
+Insert into membership values (2, "Gold", 2);
+
+Insert into users values (1, "John", "Hanks", 6527415661, 6541227456, "jhanks@gmail.com", "jhanks1234", 1);
+Insert into users values (2, "Tom", "Smith", 6527415662, 6541227457, "tom.smith@gmail.com", "tsmith1234", 1);
+Insert into users values (3, "Paul", "Hose", 6527415663, 6541227458, "paul.h@gmail.com", "phose1234", 1);
+Insert into users values (4, "Gracia", "Spears", 6527415664, 6541227459, "gspears@gmail.com", "gspears1234", 1);
+Insert into users values (5, "Li", "Yun", 6527415665, 6541227450, "li.yun@gmail.com", "lyun1234", 2);
+
+Insert into admins values (1, "Harry", "Green", 6527415666, 6541227451, "rgreen@gmail.com", "rgreen1234", 1);
+Insert into admins values (2, "John", "Bing", 6527415667, 6541227452, "jbing@gmail.com", "jbing1234", 1);
+Insert into admins values (3, "Will", "Evans", 6527415668, 6541227453, "wevans@gmail.com", "wevans1234", 2);
+Insert into admins values (4, "Kamala", "Iyer", 6527415660, 6541227454, "kiyer@gmail.com", "kiyer1234", 2);
+
+Insert into address values (1, 1, "120 W Aparaho Rd", "Richardson", "TX", 75080);
+Insert into address values (2, 2, "851 N Coit Rd", "Phoenix", "AZ", 94235);
+Insert into address values (3, 3, "120 W Campbell Rd", "Baltimore", "MD", 65020);
+Insert into address values (4, 4, "475 E Bush Rd", "Dallas", "TX", 85012);
+Insert into address values (5, 5, "216 W George Rd", "Arlington", "TX", 76019);
