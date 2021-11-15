@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @Override
     public Transaction findTransactionById(int transactionId) throws Exception {

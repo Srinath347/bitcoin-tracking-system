@@ -1,23 +1,25 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
-import com.db.bts.entity.User;
 import com.db.bts.service.TransactionService;
+import com.db.bts.service.impl.TransactionServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bts/transactions")
 public class TransactionsController {
 
     @Autowired
-    TransactionService transactionService;
+    private TransactionServiceImpl transactionService;
 
-    @GetMapping()
-    public ResponseEntity<Transaction> getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
-        Transaction transaction = transactionService.findTransactionById(userId);
+    @GetMapping("{id}")
+    public ResponseEntity<List<Transaction>> getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
+        List<Transaction> transaction = transactionService.getTransactionByUserId(userId);
         return ResponseEntity.ok().body(transaction);
     }
 

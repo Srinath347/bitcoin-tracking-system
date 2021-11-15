@@ -1,5 +1,6 @@
 package com.db.bts.model;
 
+import com.db.bts.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,7 @@ public class TransactionModel {
     private float amount;
     private float commissionValue;
     private String commissionType;
-    private UserModel user;
+    private int userId;
     private String type;
     private int status;
 
