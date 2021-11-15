@@ -122,3 +122,8 @@ Insert into address values (2, 2, "851 N Coit Rd", "Phoenix", "AZ", 94235);
 Insert into address values (3, 3, "120 W Campbell Rd", "Baltimore", "MD", 65020);
 Insert into address values (4, 4, "475 E Bush Rd", "Dallas", "TX", 85012);
 Insert into address values (5, 5, "216 W George Rd", "Arlington", "TX", 76019);
+
+Insert into account values (1, 1, 0.009, 5000);
+
+ALTER TABLE transactions RENAME COLUMN commision_rate TO commission_value;
+ALTER TABLE transactions RENAME COLUMN commision_type TO commission_type;
