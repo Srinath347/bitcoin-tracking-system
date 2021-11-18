@@ -32,8 +32,8 @@ public class User {
     private String password;
 
     @Column(name = "role_id", nullable = false)
-    private int roleId;
+    private Integer roleId;
 
     @Column(name = "member_id", nullable = false)
-    private int memberId;
+    private Integer memberId;
 }
