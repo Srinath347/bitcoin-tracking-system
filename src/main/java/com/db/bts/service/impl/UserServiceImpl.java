@@ -3,6 +3,8 @@ package com.db.bts.service.impl;
 import com.db.bts.entity.User;
 import com.db.bts.repository.UserRepository;
 import com.db.bts.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -22,6 +26,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
+            logger.error("User not found for id: {}", userId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested user not found");
         }
     }
@@ -31,6 +36,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userRepository.save(user);
         } catch (Exception e) {
+            logger.error("user sign up failed with error message: {}", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not save user");
         }
     }
@@ -42,6 +48,7 @@ public class UserServiceImpl implements UserService {
             user = validateAndUpdateUserAttributes(existingUser, user);
             return userRepository.save(user);
         } catch (Exception e) {
+            logger.error("user details update failed with error message: {}", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
