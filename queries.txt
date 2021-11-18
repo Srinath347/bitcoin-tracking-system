@@ -1,6 +1,8 @@
+DROP DATABASE IF EXISTS bts;
+create database bts;
+use bts;
 
---db used : MYSQL
---drop any table if already exists
+
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS transactions;
@@ -10,11 +12,8 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS membership;
 DROP TABLE IF EXISTS roles;
 
-create database bts;
 
-use bts;
 
---create table queries
 CREATE TABLE roles
 (
     id int PRIMARY KEY,

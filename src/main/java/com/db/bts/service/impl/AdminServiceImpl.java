@@ -3,6 +3,8 @@ package com.db.bts.service.impl;
 import com.db.bts.entity.Admin;
 import com.db.bts.repository.AdminRepository;
 import com.db.bts.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Autowired
     private AdminRepository adminRepository;
 
@@ -22,6 +26,7 @@ public class AdminServiceImpl implements AdminService {
         if (admin.isPresent()) {
             return admin.get();
         } else {
+            logger.error("Admin not found for id: {}", adminId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested admin not found");
         }
     }
@@ -31,6 +36,7 @@ public class AdminServiceImpl implements AdminService {
         try {
             return adminRepository.save(admin);
         } catch (Exception e) {
+            logger.error("admin sign up failed with error message: {}", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not save admin");
         }
     }
@@ -42,6 +48,7 @@ public class AdminServiceImpl implements AdminService {
             admin = validateAndUpdateAdminAttributes(existingAdmin, admin);
             return adminRepository.save(admin);
         } catch (Exception e) {
+            logger.error("admin details update failed with error message: {}", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
@@ -54,7 +61,7 @@ public class AdminServiceImpl implements AdminService {
     private Admin validateAndUpdateAdminAttributes(Admin existingAdmin, Admin admin) throws Exception {
         Admin updatedAdmin = existingAdmin;
         if(!isEmpty(admin.getEmail()) && !existingAdmin.getEmail().equals(admin.getEmail())) {
-            throw new Exception("Could not update email of admin");
+            throw new Exception("Could not update admin email");
         }
         if(!isEmpty(admin.getFirstName())) {
             updatedAdmin.setFirstName(admin.getFirstName());
