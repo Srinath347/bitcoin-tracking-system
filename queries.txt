@@ -4,7 +4,6 @@
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS transactions;
-DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS payments;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS membership;
@@ -35,7 +34,7 @@ CREATE TABLE users
     last_name VARCHAR(50) DEFAULT NULL,
     phone_number VARCHAR(12) DEFAULT NULL,
     cell_number VARCHAR(12) DEFAULT NULL,
-    email VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
     password VARCHAR(15) NOT NULL,
     member_id int NOT NULL,
     FOREIGN KEY (member_id) REFERENCES membership (id)
