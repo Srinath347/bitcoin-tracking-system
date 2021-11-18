@@ -48,7 +48,7 @@ CREATE TABLE admins
     last_name VARCHAR(50) DEFAULT NULL,
     phone_number VARCHAR(12) DEFAULT NULL,
     cell_number VARCHAR(12) DEFAULT NULL,
-    email VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
     password VARCHAR(15) NOT NULL,
     role_id int NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles (id)
