@@ -31,9 +31,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
-    private Integer roleId;
-
     @Column(name = "member_id", nullable = false)
     private Integer memberId;
 }
