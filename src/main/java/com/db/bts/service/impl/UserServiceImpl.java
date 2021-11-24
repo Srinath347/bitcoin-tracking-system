@@ -81,9 +81,7 @@ public class UserServiceImpl implements UserService {
         if(user.getMemberId() != null) {
             updatedUser.setMemberId(user.getMemberId());
         }
-        if(user.getRoleId() != null) {
-            updatedUser.setRoleId(user.getRoleId());
-        }
+
         return updatedUser;
     }
 

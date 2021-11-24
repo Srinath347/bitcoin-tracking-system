@@ -20,6 +20,5 @@ public class UserModel {
     private String cellNumber;
     private String email;
     private String password;
-    private int roleId;
     private int memberId;
 }
