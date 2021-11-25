@@ -1,7 +1,7 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
-import com.db.bts.service.TransactionService;
+import com.db.bts.model.TransactionModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class TransactionsController {
     @Autowired
     private TransactionServiceImpl transactionService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<List<Transaction>> getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
         List<Transaction> transaction = transactionService.getTransactionByUserId(userId);
         return ResponseEntity.ok().body(transaction);
@@ -29,10 +29,27 @@ public class TransactionsController {
         return ResponseEntity.ok().body(transaction1);
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<Transaction> addTransaction(@RequestBody @NonNull TransactionModel transactionDTO) throws Exception {
+        Transaction transaction1 = transactionService.addTransaction(transactionDTO);
+        return ResponseEntity.ok().body(transaction1);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updateStatus(@PathVariable(value = "id") int transactionId) throws Exception {
         transactionService.updateStatus(transactionId, 2);
         return ResponseEntity.ok().body("Updated Successfully");
     }
 
+//    @GetMapping("/sum/{id}")
+//    public ResponseEntity<Float> findSumAmount(@PathVariable(value = "id") int userId) throws Exception {
+//        Float sum = transactionService.findAmountSumByUser(userId);
+//        return ResponseEntity.ok().body(sum);
+//    }
+
+//    @GetMapping("/sum")
+//    public ResponseEntity<List<UserTransactionAmountModel>> findSumAmount() throws Exception {
+//        List<UserTransactionAmountModel> amountSum = transactionService.findAmountSum();
+//        return ResponseEntity.ok().body(amountSum);
+//    }
 }
