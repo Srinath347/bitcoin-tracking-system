@@ -31,6 +31,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    @OneToOne
+    @JoinColumn(name = "member_id", referencedColumnName ="id")
+    private Membership member;
 }

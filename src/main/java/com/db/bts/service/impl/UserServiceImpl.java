@@ -58,6 +58,21 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(userId);
     }
 
+    @Override
+    public User userSignIn(String email, String password) throws Exception {
+        if(isEmpty(email) || isEmpty(password)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email or password cannot be empty");
+        }
+        User user = userRepository.findUserByEmail(email);
+        if(user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found for the given email");
+        }
+        if (!password.equals(user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid user credentials");
+        }
+        return user;
+    }
+
     private User validateAndUpdateUserAttributes(User existingUser, User user) throws Exception {
         User updatedUser = existingUser;
         if(!isEmpty(user.getEmail()) && !existingUser.getEmail().equals(user.getEmail())) {
@@ -78,9 +93,10 @@ public class UserServiceImpl implements UserService {
         if(!isEmpty(user.getPhoneNumber())) {
             updatedUser.setPhoneNumber(user.getPhoneNumber());
         }
-        if(user.getMemberId() != null) {
-            updatedUser.setMemberId(user.getMemberId());
-        }
+        // TODO use User model for update
+//        if(user.getMemberId() != null) {
+//            updatedUser.setMemberId(user.getMemberId());
+//        }
 
         return updatedUser;
     }
