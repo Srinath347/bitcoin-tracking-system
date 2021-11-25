@@ -22,9 +22,6 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("select sum(t.amount) from Transaction t where t.user = :user")
     Float findAmountSumByUser(@Param("user") User user);
 
-    @Query("select sum(t.amount), t.user.id from Transaction t group by t.user")
+    @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as totalAmount, t.user.id as userId) from Transaction t group by t.user")
     List<UserTransactionAmountModel> findAmountSum();
-
-//    @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as amount, t.user.id as userId) from Transaction t group by t.user")
-//    List<UserTransactionAmountModel> findAmountSum();
 }

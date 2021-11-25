@@ -2,6 +2,7 @@ package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
 import com.db.bts.model.TransactionModel;
+import com.db.bts.model.UserTransactionAmountModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +42,9 @@ public class TransactionsController {
         return ResponseEntity.ok().body("Updated Successfully");
     }
 
-//    @GetMapping("/sum/{id}")
-//    public ResponseEntity<Float> findSumAmount(@PathVariable(value = "id") int userId) throws Exception {
-//        Float sum = transactionService.findAmountSumByUser(userId);
-//        return ResponseEntity.ok().body(sum);
-//    }
-
-//    @GetMapping("/sum")
-//    public ResponseEntity<List<UserTransactionAmountModel>> findSumAmount() throws Exception {
-//        List<UserTransactionAmountModel> amountSum = transactionService.findAmountSum();
-//        return ResponseEntity.ok().body(amountSum);
-//    }
+    @GetMapping("/sum")
+    public ResponseEntity<List<UserTransactionAmountModel>> findSumAmount() throws Exception {
+        List<UserTransactionAmountModel> amountSum = transactionService.findAmountSum();
+        return ResponseEntity.ok().body(amountSum);
+    }
 }
