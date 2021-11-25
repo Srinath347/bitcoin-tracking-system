@@ -58,6 +58,21 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.deleteById(adminId);
     }
 
+    @Override
+    public Admin adminSignIn(String email, String password) throws Exception {
+        if(isEmpty(email) || isEmpty(password)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email or password cannot be empty");
+        }
+        Admin admin = adminRepository.findAdminByEmail(email);
+        if(admin == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "admin not found for the given email");
+        }
+        if (!password.equals(admin.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid user credentials");
+        }
+        return admin;
+    }
+
     private Admin validateAndUpdateAdminAttributes(Admin existingAdmin, Admin admin) throws Exception {
         Admin updatedAdmin = existingAdmin;
         if(!isEmpty(admin.getEmail()) && !existingAdmin.getEmail().equals(admin.getEmail())) {
@@ -78,9 +93,10 @@ public class AdminServiceImpl implements AdminService {
         if(!isEmpty(admin.getPhoneNumber())) {
             updatedAdmin.setPhoneNumber(admin.getPhoneNumber());
         }
-        if(admin.getRoleId() != null) {
-            updatedAdmin.setRoleId(admin.getRoleId());
-        }
+        // TODO use adminModel pojo for update
+//        if(admin.getRoleId() != null) {
+//            updatedAdmin.setRoleId(admin.getRoleId());
+//        }
         return updatedAdmin;
     }
 

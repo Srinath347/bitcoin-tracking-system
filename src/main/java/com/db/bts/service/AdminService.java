@@ -11,4 +11,6 @@ public interface AdminService {
     public Admin updateAdmin(int adminId, Admin admin) throws Exception;
 
     public void deleteAdminById(int adminId) throws Exception;
+
+    public Admin adminSignIn(String email, String password) throws Exception;
 }

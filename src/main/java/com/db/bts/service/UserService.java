@@ -11,4 +11,6 @@ public interface UserService {
     public User updateUser(int userId, User user) throws Exception;
 
     public void deleteUserById(int userId) throws Exception;
+
+    public User userSignIn(String email, String password) throws Exception;
 }

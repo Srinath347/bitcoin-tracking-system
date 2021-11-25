@@ -31,6 +31,7 @@ public class Admin {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
-    private Integer roleId;
+    @OneToOne
+    @JoinColumn(name = "role_id", referencedColumnName ="id")
+    private Role role;
 }
