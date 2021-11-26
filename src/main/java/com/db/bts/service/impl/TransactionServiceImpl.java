@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,8 +68,8 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public List<UserTransactionAmountModel> findAmountSum() throws Exception {
-        return Optional.ofNullable(transactionRepository.findAmountSum())
+    public List<UserTransactionAmountModel> findAmountSum(Date from, Date to) throws Exception {
+        return Optional.ofNullable(transactionRepository.findAmountSum(from, to))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not get amount"));
     }
 }

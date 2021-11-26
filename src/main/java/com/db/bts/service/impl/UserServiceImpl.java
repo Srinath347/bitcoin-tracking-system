@@ -1,7 +1,10 @@
 package com.db.bts.service.impl;
 
+import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
+import com.db.bts.model.MembershipNameModel;
 import com.db.bts.repository.UserRepository;
+import com.db.bts.service.MembershipService;
 import com.db.bts.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MembershipService membershipService;
 
     @Override
     public User findUserById(final int userId) throws Exception {
@@ -71,6 +78,29 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid user credentials");
         }
         return user;
+    }
+
+    @Override
+    public void updateMembershipStatus(List<Integer> userIds, String status) throws Exception {
+        Membership membership = membershipService.findMembershipByName(status);
+        try {
+        userRepository.updateMembershipStatus(userIds, membership);
+        } catch (Exception e) {
+            logger.error("user membership update failed with error message: {}", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not update membership status");
+        }
+    }
+
+    @Override
+    public User updateMembershipStatusById(Integer userId, MembershipNameModel status) throws Exception {
+        Membership membership = membershipService.findMembershipByName(status.getName());
+        try {
+            userRepository.updateMembershipStatusById(userId, membership.getId());
+            return (userRepository.findById(userId)).get();
+        } catch (Exception e) {
+            logger.error("user membership update failed with error message: {}", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not update membership status");
+        }
     }
 
     private User validateAndUpdateUserAttributes(User existingUser, User user) throws Exception {

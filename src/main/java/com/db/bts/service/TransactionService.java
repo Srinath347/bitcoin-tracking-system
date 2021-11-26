@@ -4,6 +4,7 @@ import com.db.bts.entity.Transaction;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.model.UserTransactionAmountModel;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,6 +22,6 @@ public interface TransactionService {
 
     Float findAmountSumByUser(int userId) throws Exception;
 
-    List<UserTransactionAmountModel> findAmountSum() throws Exception;
+    List<UserTransactionAmountModel> findAmountSum(Date from, Date to) throws Exception;
 
 }
