@@ -22,7 +22,7 @@ public class Address {
     @Column(name = "state", nullable = false)
     private String state;
 
-    @Column(name = "zipcode", nullable = false)
+    @Column(name = "zip_code", nullable = false)
     private int zipcode;
 
     @ManyToOne()

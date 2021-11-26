@@ -1,7 +1,10 @@
 package com.db.bts.controller;
 
+import com.db.bts.entity.Address;
+import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
 import com.db.bts.model.MembershipNameModel;
+import com.db.bts.service.MembershipService;
 import com.db.bts.service.impl.UserServiceImpl;
 import lombok.NonNull;
 import org.slf4j.Logger;
@@ -9,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/bts")
@@ -20,7 +25,11 @@ public class UsersController {
 
     @Autowired
     private UserServiceImpl userService;
-
+    
+    @Autowired
+    private MembershipService memberService;
+    
+    
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") int userId) throws Exception {
         logger.info("GET request for user with id {}", userId);
@@ -30,11 +39,15 @@ public class UsersController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> addUser(@RequestBody @NonNull User user) throws Exception {
+    public ModelAndView addUser(@ModelAttribute User user) throws Exception {
         logger.info("POST request for user with details: {}", user);
+        Membership membership=memberService.findMembershipByName("Silver");
+        user.setMember(membership);
         User savedUser = userService.addUser(user);
         logger.info("User with id: [{}] signed up successfully", savedUser.getId());
-        return ResponseEntity.ok().body(savedUser);
+        Address address=new Address();
+        address.setUser(savedUser);
+        return new ModelAndView("address","address", address);
     }
 
     @PutMapping("/user/{id}")
