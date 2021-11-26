@@ -1,16 +1,16 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Address;
-import com.db.bts.model.AddressModel;
+import com.db.bts.entity.User;
 import com.db.bts.service.impl.AddressServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/bts")
-
 public class AddressController {
 
     @Autowired
@@ -23,8 +23,8 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<Address> save(@RequestBody @NonNull Address address) throws Exception{
+    public ModelAndView save(@ModelAttribute @NonNull Address address) throws Exception{
         Address address1=addressService.save(address);
-        return ResponseEntity.ok().body(address1);
+        return new ModelAndView("login","user", new User());
     }
 }

@@ -1,0 +1,12 @@
+.gradient-background{
+
+  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+}
+
+.profile-label {
+  margin-left: 1rem;
+}
+
+.right-items {
+  align-items: baseline;
+}
