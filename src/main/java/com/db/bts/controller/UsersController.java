@@ -1,6 +1,7 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.User;
+import com.db.bts.model.MembershipNameModel;
 import com.db.bts.service.impl.UserServiceImpl;
 import lombok.NonNull;
 import org.slf4j.Logger;
@@ -55,5 +56,14 @@ public class UsersController {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete user");
         }
+    }
+
+    @PutMapping("/user/membership/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") int userId,
+                                           @RequestBody @NonNull MembershipNameModel status) throws Exception {
+        logger.info("PUT request for user with id: [{}]", userId);
+        User updatedUser = userService.updateMembershipStatusById(userId, status);
+        logger.info("User details updated successfully");
+        return ResponseEntity.ok().body(updatedUser);
     }
 }

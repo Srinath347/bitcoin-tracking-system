@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,6 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("select sum(t.amount) from Transaction t where t.user = :user")
     Float findAmountSumByUser(@Param("user") User user);
 
-    @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as totalAmount, t.user.id as userId) from Transaction t group by t.user")
-    List<UserTransactionAmountModel> findAmountSum();
+    @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as totalAmount, t.user.id as userId) from Transaction t where date(t.time) < :to and date(t.time) >= :from group by t.user")
+    List<UserTransactionAmountModel> findAmountSum(@Param("from") Date from, @Param("to") Date to);
 }
