@@ -1,6 +1,5 @@
 package com.db.bts.model;
 
-import com.db.bts.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +19,6 @@ public class AddressModel {
     private String city;
     private String state;
     private int zipcode;
-    private User user;
+    private int userId;
+
 }
