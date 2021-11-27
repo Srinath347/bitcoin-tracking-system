@@ -4,9 +4,14 @@ import com.db.bts.entity.Address;
 import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
 import com.db.bts.model.MembershipNameModel;
+import com.db.bts.service.AddressService;
 import com.db.bts.service.MembershipService;
 import com.db.bts.service.impl.UserServiceImpl;
 import lombok.NonNull;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +34,18 @@ public class UsersController {
     @Autowired
     private MembershipService memberService;
     
+    @Autowired
+    private AddressService addressService;
+    
     
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "id") int userId) throws Exception {
+    public ModelAndView getUserById(@PathVariable(value = "id") int userId, Model model) throws Exception {
         logger.info("GET request for user with id {}", userId);
         User user = userService.findUserById(userId);
+        Address address= addressService.findAddressByUserId(user.getId());
         logger.info("user details : {}", user);
-        return ResponseEntity.ok().body(user);
+        model.addAttribute("address", address);
+        return new ModelAndView("profile","user", user);
     }
 
     @PostMapping("/user")

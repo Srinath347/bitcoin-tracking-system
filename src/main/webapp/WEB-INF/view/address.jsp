@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/custom.css">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,7 +21,7 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 	
-	<section class="vh-100 login-background">
+	<section class="login-background">
 	  <form:form action="/bts/address" method="POST" modelAttribute="address">
 	  <div class="container py-5 h-100">
 	  	<form:input type="hidden" id="user" path="user"/>

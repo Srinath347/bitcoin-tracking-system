@@ -24,11 +24,11 @@ public class AccountController {
     private AccountServiceImpl accountService;
 
     @GetMapping("/account/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable(value = "id") int accountId) throws Exception {
+    public ModelAndView getAccountById(@PathVariable(value = "id") int accountId) throws Exception {
         logger.info("GET request for account with id {}", accountId);
         Account account = accountService.findAccountById(accountId);
         logger.info("account details : {}", account);
-        return ResponseEntity.ok().body(account);
+        return new ModelAndView("wallet","account", account);
     }
 
     @PostMapping("/account")
