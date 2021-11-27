@@ -1,7 +1,6 @@
 package com.db.bts.service.impl;
 
 import com.db.bts.entity.Account;
-import com.db.bts.entity.User;
 import com.db.bts.repository.AccountRepository;
 import com.db.bts.service.AccountService;
 import org.slf4j.Logger;
@@ -60,6 +59,27 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void deleteAccountById(int accountId) throws Exception {
         accountRepository.deleteById(accountId);
+    }
+
+    @Override
+    public Account findAccountByUserId(int userId) throws Exception {
+        return Optional.ofNullable(accountRepository.findAccountByUserId(userId))
+                .orElseThrow(() ->
+                    new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to get account details"));
+    }
+
+    @Override
+    public Double findBalanceByUserId(int userId) throws Exception {
+        return Optional.ofNullable(accountRepository.findBalanceByUserId(userId))
+                .orElseThrow(() ->
+                    new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to get account details"));
+    }
+
+    @Override
+    public Double findBitcoinsByUserId(int userId) throws Exception {
+        return Optional.ofNullable(accountRepository.findBitcoinsByUserId(userId))
+                .orElseThrow(() ->
+                    new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to get account details"));
     }
 
     private Account validateAndUpdateAccountAttributes(Account existingAccount, Account account) throws Exception {
