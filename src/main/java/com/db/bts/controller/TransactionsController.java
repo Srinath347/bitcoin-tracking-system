@@ -24,12 +24,6 @@ public class TransactionsController {
     }
 
     @PostMapping()
-    public ResponseEntity<Transaction> createNewTransaction(@RequestBody @NonNull Transaction transaction) throws Exception {
-        Transaction transaction1 = transactionService.save(transaction);
-        return ResponseEntity.ok().body(transaction1);
-    }
-
-    @PostMapping("/new")
     public ResponseEntity<Transaction> addTransaction(@RequestBody @NonNull TransactionModel transactionDTO) throws Exception {
         Transaction transaction1 = transactionService.addTransaction(transactionDTO);
         return ResponseEntity.ok().body(transaction1);

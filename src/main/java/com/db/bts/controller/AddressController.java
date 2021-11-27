@@ -2,8 +2,8 @@ package com.db.bts.controller;
 
 import com.db.bts.entity.Address;
 import com.db.bts.entity.User;
+import com.db.bts.model.AddressModel;
 import com.db.bts.service.impl.AddressServiceImpl;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +23,8 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ModelAndView save(@ModelAttribute @NonNull Address address) throws Exception{
-        Address address1=addressService.save(address);
+    public ModelAndView save(@RequestBody AddressModel addressModel) throws Exception{
+        Address address1=addressService.save(addressModel);
         return new ModelAndView("login","user", new User());
     }
 }
