@@ -1,8 +1,6 @@
 package com.db.bts.service;
 
 import com.db.bts.entity.Account;
-import com.db.bts.entity.Admin;
-import com.db.bts.entity.User;
 
 public interface AccountService {
 
@@ -13,5 +11,11 @@ public interface AccountService {
     public Account updateAccount(int accountId, Account account) throws Exception;
 
     public void deleteAccountById(int accountId) throws Exception;
+
+    public Account findAccountByUserId(int userId) throws Exception;
+
+    public Double findBalanceByUserId(int userId) throws Exception;
+
+    public Double findBitcoinsByUserId(int userId) throws Exception;
 
 }
