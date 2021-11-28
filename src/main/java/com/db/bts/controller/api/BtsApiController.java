@@ -34,11 +34,6 @@ public class BtsApiController {
 
     @Autowired
     private AdminServiceImpl adminService;
-
-	/*
-	 * @GetMapping() public ResponseEntity<Object> healthCheck() { return
-	 * ResponseEntity.ok("OK"); }
-	 */
     
     @GetMapping("")
    	public ModelAndView loadLogin(Model model) {
