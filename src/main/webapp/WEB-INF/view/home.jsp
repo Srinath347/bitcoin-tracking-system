@@ -15,11 +15,21 @@
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 	<title>Home Page</title>
 	<%@ page import="com.db.bts.entity.User"%>
+	<%@ page import="com.db.bts.entity.Admin"%>
 	<%	
 	HttpSession session1= request.getSession(false);
 		User user=null;
+		Admin admin = null;
 		if(session1!=null){
-			user= (User) session1.getAttribute("user");
+			if(session1.getAttribute("user")!=null){
+				
+				user= (User) session1.getAttribute("user");
+				
+			}
+			if(session1.getAttribute("admin")!=null){
+				
+				admin = (Admin) session1.getAttribute("admin");
+			}
 		}
 	%>
 			
@@ -53,8 +63,12 @@ body {
 	      <div class="d-flex justify-content-left align-items-center pl-5 pt-4">
 	        <div class="text-white">
 	          <h1 class="mb-3">Welcome</h1>
+	          <% if(user!=null){ %>
 	          <h4 class="mb-3"><%=user.getFirstName() %>&nbsp;<%=user.getLastName() %></h4>
-	          <a class="btn btn-outline-light btn-lg" href="#!" role="button">See Details</a>
+	          <%} if(admin!=null){ %>
+	          <h4 class="mb-3"><%=admin.getFirstName() %>&nbsp;<%=admin.getLastName() %></h4>
+	          <%} %>
+	          <a class="btn btn-outline-light btn-lg" href="#" role="button">See Details</a>
 	        </div>
 	      </div>
 	    </div>

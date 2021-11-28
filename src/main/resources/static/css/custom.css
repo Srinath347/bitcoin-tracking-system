@@ -1,6 +1,31 @@
 .gradient-background{
 
+  /* fallback for old browsers */
+  background: #6a11cb;
+
+  /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+.login-background{
+	background-image: url('../image/bitcoin-background1.jpg');
+}
+
+.edit-button{
+ 
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header-margin{
+	margin-bottom: 150px;
+}
+
+body{
+	background-image: url('../image/bitcoin-background1.jpg');
 }
 
 .profile-label {
@@ -9,4 +34,13 @@
 
 .right-items {
   align-items: baseline;
+}
+
+.user-radio-button{
+	float: left;
+	margin-left: 70px;
+}
+
+.radio-button{
+	float: left;
 }

@@ -45,10 +45,18 @@ public class BtsApiController {
     
 
     @PostMapping("/user/sign_in")
-    public ModelAndView userSignIn(@ModelAttribute("user") User user, HttpServletRequest req, HttpServletResponse res) throws Exception {
-        User user1 = userService.userSignIn(user.getEmail(), user.getPassword());
-        //System.out.println(user1.toString());
-        req.getSession().setAttribute("user", user1);
+    public ModelAndView userSignIn(@ModelAttribute("user") User user, HttpServletRequest req, HttpServletResponse res, @RequestParam("login_type") String loginType) throws Exception {
+    	
+    	if(loginType.equals("user")) {
+    		User user1 = userService.userSignIn(user.getEmail(), user.getPassword());
+    		//System.out.println(user1.toString());
+    		req.getSession().setAttribute("user", user1);
+    	}
+    	if(loginType.equals("admin")){
+    		Admin admin1 = adminService.adminSignIn(user.getEmail(), user.getPassword());
+    		req.getSession().setAttribute("admin", admin1);
+    	}
+        
         return new ModelAndView("home");
     }
 
