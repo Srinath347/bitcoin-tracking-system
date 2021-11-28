@@ -65,7 +65,7 @@ public class AccountController {
                                      @ModelAttribute("amount") float amount) throws Exception {
         logger.info("update balance request for userId : {}, amount: {}", userId, amount);
         Account account = accountService.addAmountToUserAccount(userId, amount);
-        logger.info("updated account: {}",account);
-        return new ModelAndView("account");
+        logger.info("updated account: {}", account);
+        return new ModelAndView("wallet");
     }
 }
