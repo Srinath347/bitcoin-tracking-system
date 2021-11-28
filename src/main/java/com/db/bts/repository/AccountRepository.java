@@ -15,6 +15,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Query("select a.balance from Account a where a.user.id = :id")
     Double findBalanceByUserId(@Param("id") int userId);
 
+
     @Query("select a.bitcoin from Account a where a.user.id = :id")
     Double findBitcoinsByUserId(@Param("id") int userId);
 

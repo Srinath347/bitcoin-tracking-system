@@ -59,4 +59,13 @@ public class AccountController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete account");
         }
     }
+
+    @PutMapping("/wallet/add")
+    public ModelAndView depositMoney(@ModelAttribute("userId") int userId,
+                                     @ModelAttribute("amount") float amount) throws Exception {
+        logger.info("update balance request for userId : {}, amount: {}", userId, amount);
+        Account account = accountService.addAmountToUserAccount(userId, amount);
+        logger.info("updated account: {}",account);
+        return new ModelAndView("account");
+    }
 }

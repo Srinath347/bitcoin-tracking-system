@@ -18,4 +18,6 @@ public interface AccountService {
 
     public Double findBitcoinsByUserId(int userId) throws Exception;
 
+    public Account addAmountToUserAccount(int userId, float amount) throws Exception;
+
 }
