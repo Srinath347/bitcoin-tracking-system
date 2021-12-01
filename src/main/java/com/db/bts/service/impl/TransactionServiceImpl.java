@@ -64,10 +64,19 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public Transaction addTransaction(TransactionModel transactionDTO) throws Exception {
         if(transactionDTO.getType().equalsIgnoreCase("sell")) {
-            if(!checkIsBitcoinsAvailable(transactionDTO)) {
+            float amount = transactionDTO.getAmount();
+            if(transactionDTO.getCommissionType().equalsIgnoreCase("bitcoin")) {
+                amount += transactionDTO.getCommissionValue();
+            } else {
+                if(!checkIsCurrencyAvailable(transactionDTO.getCommissionValue(), transactionDTO.getUserId())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sufficient currency not available in account to make transaction");
+                }
+            }
+            if(!checkIsBitcoinsAvailable(amount, transactionDTO.getUserId())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sufficient bitcoins not available in account");
             }
         }
+
         Transaction transaction = transactionDTOMapper.mapTransactionDTOToModel(transactionDTO);
         return Optional.ofNullable(transactionRepository.save(transaction))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not create transaction"));
@@ -86,14 +95,16 @@ public class TransactionServiceImpl implements TransactionService{
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not get amount"));
     }
 
-    private Boolean checkIsBitcoinsAvailable(TransactionModel transactionDTO) throws Exception {
-        Double bitcoinBalance = accountService.findBitcoinsByUserId(transactionDTO.getUserId());
+    private Boolean checkIsCurrencyAvailable(float amount, int userId) throws Exception {
+        Double currencyBalance = accountService.findBalanceByUserId(userId);
+        logger.info("Balance : {}", currencyBalance);
+        return currencyBalance >= (amount);
+    }
+
+    private Boolean checkIsBitcoinsAvailable(float amount, int userId) throws Exception {
+        Double bitcoinBalance = accountService.findBitcoinsByUserId(userId);
         logger.info("Bitcoins : {}", bitcoinBalance);
-        if (transactionDTO.getCommissionType().equalsIgnoreCase("bitcoin")) {
-            return bitcoinBalance >= (transactionDTO.getAmount() + transactionDTO.getCommissionValue());
-        } else {
-            return bitcoinBalance >= (transactionDTO.getAmount());
-        }
+        return bitcoinBalance >= (amount);
     }
 
 }
