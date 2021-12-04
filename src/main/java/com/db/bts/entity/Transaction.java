@@ -39,4 +39,8 @@ public class Transaction {
     @ColumnDefault("0")
     private int status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "issuer_id", referencedColumnName = "id")
+    private Admin trader;
+
 }

@@ -19,6 +19,7 @@ public class TransactionModel {
     private float commissionValue;
     private String commissionType;
     private int userId;
+    private int traderId;
     private String type;
     private int status;
 

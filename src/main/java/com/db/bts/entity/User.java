@@ -34,4 +34,8 @@ public class User {
     @OneToOne
     @JoinColumn(name = "member_id", referencedColumnName ="id")
     private Membership member;
+
+    @ManyToOne
+    @JoinColumn(name = "trader_id", referencedColumnName ="id")
+    private Admin trader;
 }
