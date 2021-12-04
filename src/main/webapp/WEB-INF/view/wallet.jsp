@@ -19,10 +19,13 @@
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 	
 </head>
+<script type="text/javascript">
+document.getElementById('amount').value=null;
 
+</script>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<section>
+	<section class="footer-margin">
 	  <%-- <form:form action="/bts/user" method="POST" modelAttribute="user"> --%>
 	  <div class="container py-5 mt-4">
 	    <div class="row d-flex justify-content-center align-items-center h-100">
@@ -59,28 +62,28 @@
 	                    <p class="text-muted">${account.bitcoin}</p>
 	                  </div>
 	                </div>
+	                <%
+						HttpSession session1= request.getSession(false);
+	                	
+						if(session1.getAttribute("added").equals("true")){%>
+							<div class="form-outline form-white mb-4">
+	                		<h6>Amount added successfully!!</h6>
+	                		<h6><label class="form-label">Want to add amount again?</label></h6>
+	                		<a href='http://localhost:9000/bts/account/${account.user.id}'><button class="btn btn-outline-dark btn-sm mt-2 px-5">Click here</button></a>
+	              			</div>
+						<%}else{%>
+							<div class="form-outline form-white mb-4">
+		                	<h6><label class="form-label" for="amount">Add amount</label></h6>
+		                	<input type="text" id="amount" class="form-control form-control-lg" />
+		                	<a href='' onclick="this.href='http://localhost:9000/bts/account/wallet/add?userId=${account.user.id}&amount='+document.getElementById('amount').value"><button class="btn btn-outline-dark btn-sm mt-2 px-5" type="submit">Add</button></a>
+		              		</div>
+						<%}
+					%>
 	                
-	                <div class="form-outline form-white mb-4">
-	                	<h6><label class="form-label" for="amount">Add amount</label></h6>
-	                	<input type="text" id="amount" class="form-control form-control-lg" />
-	                	<button class="btn btn-outline-dark btn-sm mt-2 px-5" type="submit">Add</button>
-	              	</div>
+	                
 	
 	                
-	                <%-- <h6>Address</h6>
-	                <hr class="mt-0 mb-4">
-	                <div class="row pt-1">
-	                  <div class="col-6 mb-3">
-	                    <h6>Street Address</h6>
-	                    <p class="text-muted">${address.street}</p>
-	                  </div>
-	                  <div class="col-6 mb-3">
-	                    <h6>City</h6>
-	                    <p class="text-muted">${address.city}</p>
-	                  </div>
-	                </div> --%>
-	                
-	                
+	           
 	              
 	              </div>
 	            </div>
@@ -89,9 +92,9 @@
 	      </div>
 	    </div>
 	  </div>
-<%-- 	  </form:form> --%>
+<%--  	 </form:form> --%>
 	</section>
-	
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 
 </html>

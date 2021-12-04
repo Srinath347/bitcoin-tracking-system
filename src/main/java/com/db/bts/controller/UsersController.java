@@ -37,6 +37,11 @@ public class UsersController {
     @Autowired
     private AddressService addressService;
     
+    @GetMapping("/user")
+    public ModelAndView transaction(Model model) throws Exception {
+          return new ModelAndView("userTransactionHistory");
+    }
+
     
     @GetMapping("/user/{id}")
     public ModelAndView getUserById(@PathVariable(value = "id") int userId, Model model) throws Exception {

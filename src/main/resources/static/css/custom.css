@@ -25,9 +25,13 @@
 }
 
 body{
-	background-image: url('../image/bitcoin-background1.jpg');
+	/* background-image: url('../image/bitcoin-background1.jpg'); */
+	
 }
 
+.mask{
+	height: 400px;
+}
 .profile-label {
   margin-left: 1rem;
 }
@@ -43,4 +47,16 @@ body{
 
 .radio-button{
 	float: left;
+}
+footer{
+	background-color: #008080;
+}
+.header-color{
+	background-color: #008080;
+}
+
+.buy-radio-button, .sell-radio-button{
+	float: left;
+	margin-left: 180px;
+	margin-bottom: 30px;
 }

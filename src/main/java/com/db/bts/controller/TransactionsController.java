@@ -7,6 +7,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,11 +17,18 @@ public class TransactionsController {
 
     @Autowired
     private TransactionServiceImpl transactionService;
+    
+    @GetMapping("")
+    public ModelAndView buyOrSell() throws Exception {
+        
+        return new ModelAndView("userBuySell");
+    }
+
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Transaction>> getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
-        List<Transaction> transaction = transactionService.getTransactionByUserId(userId);
-        return ResponseEntity.ok().body(transaction);
+    public ModelAndView getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
+        List<Transaction> transactionList = transactionService.getTransactionByUserId(userId);
+        return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
     }
 
     @PostMapping()

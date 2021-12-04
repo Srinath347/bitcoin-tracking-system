@@ -38,11 +38,12 @@
 </head>
 <style>
 body {
-    background-image: url('<%=request.getContextPath()%>/image/bitcoin-background1.jpg');
+    
     
 }
 .mask{
 	margin-top: 58px;
+	<%-- background-image: url('<%=request.getContextPath()%>/image/bitcoin-background1.jpg'); --%>
 }
 </style>
 <body>
@@ -59,20 +60,25 @@ body {
 	          margin-top: 58px;
 	        "
 	  > --%>
-	    <div class="mask" style="background-color: rgba(0, 0, 0, 0); height: 100%">
-	      <div class="d-flex justify-content-left align-items-center pl-5 pt-4">
-	        <div class="text-white">
+	    <div class="mask">
+	      <div class="d-flex justify-content-center align-items-center pl-5 pt-4">
+	        <div>
 	          <h1 class="mb-3">Welcome</h1>
 	          <% if(user!=null){ %>
 	          <h4 class="mb-3"><%=user.getFirstName() %>&nbsp;<%=user.getLastName() %></h4>
 	          <%} if(admin!=null){ %>
 	          <h4 class="mb-3"><%=admin.getFirstName() %>&nbsp;<%=admin.getLastName() %></h4>
 	          <%} %>
-	          <a class="btn btn-outline-light btn-lg" href="#" role="button">See Details</a>
+	          <a class="btn btn-outline-dark btn-lg" style="width:200px" href="/bts/transactions" role="button">BUY/SELL</a><br><br>
+	        
+	          
 	        </div>
-	      </div>
+	      </div>	    
 	    </div>
 	  <!-- </div> -->
+	  
 	  <!-- Background image -->
+	  <jsp:include page="footer.jsp"></jsp:include>
   </body>
+  
   </html>

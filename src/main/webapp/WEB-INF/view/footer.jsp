@@ -1,11 +1,111 @@
-<div class="container my-5">
+<style>
+/* #main-wrapper {
+    padding: 0 0 100px;
+    position: relative;
+}
 
-  <footer class="text-white text-center text-lg-start" style="background-color: #23242a;">
-    <!-- Grid container -->
+footer {
+    
+    height: 100px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+} */
+</style>
+<div id="main-wrapper">
+<footer class="page-footer font-small purple pt-4">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <!-- <div class="row">
+
+      Grid column
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        Content
+        <h5 class="text-uppercase">Footer Content</h5>
+        <p>Here you can use rows and columns to organize your footer content.</p>
+
+      </div>
+      Grid column
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      Grid column
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        Links
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">Link 1</a>
+          </li>
+          <li>
+            <a href="#!">Link 2</a>
+          </li>
+          <li>
+            <a href="#!">Link 3</a>
+          </li>
+          <li>
+            <a href="#!">Link 4</a>
+          </li>
+        </ul>
+
+      </div>
+      Grid column
+
+      Grid column
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        Links
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">Link 1</a>
+          </li>
+          <li>
+            <a href="#!">Link 2</a>
+          </li>
+          <li>
+            <a href="#!">Link 3</a>
+          </li>
+          <li>
+            <a href="#!">Link 4</a>
+          </li>
+        </ul>
+
+      </div>
+      Grid column
+
+    </div>
+ -->    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+  <div class="mx-auto footer-copyright text-center py-3">
+        <p><a href="#" style="color:black">Home</a> / <a href="#" style="color:black">Profile</a> / <a href="#" style="color:black">Transaction</a> / <a href="#" style="color:black">Wallet</a> / <a href="#" style="color:black">About</a></p>
+            
+        
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" >© 2018 Copyright:
+    <a href="#" style="color:black">www.bts.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+</div>
+ <!--  <footer class="text-white text-center text-lg-start" style="background-color: #23242a;">
+    Grid container
     <div class="container p-4">
-      <!--Grid row-->
+      Grid row
       <div class="row mt-4">
-        <!--Grid column-->
+        Grid column
         <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
           <h5 class="text-uppercase mb-4">About company</h5>
 
@@ -20,20 +120,20 @@
           </p>
 
           <div class="mt-4">
-            <!-- Facebook -->
+            Facebook
             <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
-            <!-- Dribbble -->
+            Dribbble
             <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-dribbble"></i></a>
-            <!-- Twitter -->
+            Twitter
             <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
-            <!-- Google + -->
+            Google +
             <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-google-plus-g"></i></a>
-            <!-- Linkedin -->
+            Linkedin
           </div>
         </div>
-        <!--Grid column-->
+        Grid column
 
-        <!--Grid column-->
+        Grid column
         <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
           <h5 class="text-uppercase mb-4 pb-1">Search something</h5>
 
@@ -57,9 +157,9 @@
             </li>
           </ul>
         </div>
-        <!--Grid column-->
+        Grid column
 
-        <!--Grid column-->
+        Grid column
         <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
           <h5 class="text-uppercase mb-4">Opening hours</h5>
 
@@ -80,19 +180,18 @@
             </tbody>
           </table>
         </div>
-        <!--Grid column-->
+        Grid column
       </div>
-      <!--Grid row-->
+      Grid row
     </div>
-    <!-- Grid container -->
+    Grid container
 
-    <!-- Copyright -->
+    Copyright
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2020 Copyright:
       <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
-    <!-- Copyright -->
+    Copyright
   </footer>
   
-</div>
-<!-- End of .container -->
+End of .container -->
