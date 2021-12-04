@@ -5,8 +5,8 @@ use bts;
 
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS account;
-DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS audit;
+DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS payments;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS admins;
@@ -56,17 +56,6 @@ CREATE TABLE users
     FOREIGN KEY (trader_id) REFERENCES admins (id)
 );
 
-CREATE TABLE audit
-(
-    id int PRIMARY KEY,
-    user_id int NOT NULL,
-    trader_id int NOT NULL,
-    message VARCHAR(100) NOT NULL,
-    time datetime NULL,
-	FOREIGN KEY (user_id) REFERENCES users(id),
-	FOREIGN KEY (trader_id) REFERENCES admins(id)
-);
-
 CREATE TABLE address
 (
     id int PRIMARY KEY,
@@ -101,6 +90,19 @@ CREATE TABLE transactions
     role_id int,
 	FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+CREATE TABLE audit
+(
+    id int PRIMARY KEY,
+    user_id int NOT NULL,
+    trader_id int NOT NULL,
+    message VARCHAR(100) NOT NULL,
+    time datetime NULL,
+    transaction_id int NOT NULL,
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (trader_id) REFERENCES admins(id),
+	FOREIGN KEY (transaction_id) REFERENCES transactions (id)
 );
 
 CREATE TABLE payments
