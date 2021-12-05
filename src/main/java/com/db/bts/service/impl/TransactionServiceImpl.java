@@ -5,6 +5,7 @@ import com.db.bts.entity.Transaction;
 import com.db.bts.entity.User;
 import com.db.bts.mapper.TransactionDTOMapper;
 import com.db.bts.model.TransactionModel;
+import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.UserTransactionAmountModel;
 import com.db.bts.repository.TransactionRepository;
 import com.db.bts.service.AccountService;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +97,39 @@ public class TransactionServiceImpl implements TransactionService{
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not get amount"));
     }
 
+    @Override
+    public List<TransactionSearchModel> findTransactionByCriteria(String value, String field) throws Exception {
+        if(field.equalsIgnoreCase("name")) {
+            List<Transaction> transactions =  findTransactionByUserName(value);
+            List<TransactionSearchModel> transactionSearchModels = new ArrayList<>();
+            for ( Transaction transaction : transactions) {
+                logger.info("Transactuons {}", transaction.getUser().getEmail());
+                TransactionSearchModel transactionSearchModel = new TransactionSearchModel();
+                transactionSearchModel.setAmount(transaction.getAmount());
+                transactionSearchModel.setCommissionType(transaction.getCommissionType());
+                transactionSearchModel.setUserName(transaction.getUser().getFirstName()+" "+ transaction.getUser().getLastName());
+                transactionSearchModel.setCommissionValue(transaction.getCommissionValue());
+                transactionSearchModels.add(transactionSearchModel);
+            }
+            return transactionSearchModels;
+        }
+        return new ArrayList<TransactionSearchModel>();
+    }
+
+    @Override
+    public List<Transaction> findTransactionsByDate(Date from, Date to) throws Exception {
+        logger.info("Date: {}, {}", from, to);
+        List<Transaction> transactions = Optional.ofNullable(transactionRepository.findTransactionsByDate(from, to))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to fetch transactions"));
+        logger.info("Count: {}", transactions.size());
+        return transactions;
+    }
+
+    private List<Transaction> findTransactionByUserName(String name) throws Exception{
+        return Optional.ofNullable(transactionRepository.findTransactionByUserName(name))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No transactions found for user"));
+    }
+
     private Boolean checkIsCurrencyAvailable(float amount, int userId) throws Exception {
         Double currencyBalance = accountService.findBalanceByUserId(userId);
         logger.info("Balance : {}", currencyBalance);
@@ -105,6 +140,10 @@ public class TransactionServiceImpl implements TransactionService{
         Double bitcoinBalance = accountService.findBitcoinsByUserId(userId);
         logger.info("Bitcoins : {}", bitcoinBalance);
         return bitcoinBalance >= (amount);
+    }
+
+    private boolean isEmpty(String value) {
+        return (value == null || value.length() == 0);
     }
 
 }

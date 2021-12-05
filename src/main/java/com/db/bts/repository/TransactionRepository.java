@@ -25,4 +25,10 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
     @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as totalAmount, t.user.id as userId) from Transaction t where date(t.time) < :to and date(t.time) >= :from group by t.user")
     List<UserTransactionAmountModel> findAmountSum(@Param("from") Date from, @Param("to") Date to);
+
+    @Query("from Transaction t where date(t.time) < :to and date(t.time) >= :from")
+    List<Transaction> findTransactionsByDate(@Param("from") Date from, @Param("to") Date to);
+
+    @Query("from Transaction t where lower(t.type) like lower(concat('%', :name,'%'))")
+    List<Transaction> findTransactionByUserName(@Param("name") String name);
 }

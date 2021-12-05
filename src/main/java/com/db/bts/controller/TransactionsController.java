@@ -2,6 +2,7 @@ package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
 import com.db.bts.model.TransactionModel;
+import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class TransactionsController {
     public ResponseEntity<String> updateStatus(@PathVariable(value = "id") int transactionId) throws Exception {
         transactionService.updateStatus(transactionId, 2);
         return ResponseEntity.ok().body("Updated Successfully");
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<TransactionSearchModel>> findTransactionByCriteria(@RequestParam("value") String value, @RequestParam("field") String field) throws Exception {
+        List<TransactionSearchModel> transactions = transactionService.findTransactionByCriteria(value, field);
+        return ResponseEntity.ok().body(transactions);
     }
 
 }

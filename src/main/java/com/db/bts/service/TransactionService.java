@@ -2,6 +2,7 @@ package com.db.bts.service;
 
 import com.db.bts.entity.Transaction;
 import com.db.bts.model.TransactionModel;
+import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.UserTransactionAmountModel;
 
 import java.util.Date;
@@ -23,5 +24,9 @@ public interface TransactionService {
     Float findAmountSumByUser(int userId) throws Exception;
 
     List<UserTransactionAmountModel> findAmountSum(Date from, Date to) throws Exception;
+
+    List<TransactionSearchModel> findTransactionByCriteria(String value, String field) throws Exception;
+
+    List<Transaction> findTransactionsByDate(Date from, Date to) throws Exception;
 
 }
