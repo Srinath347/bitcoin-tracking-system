@@ -53,4 +53,8 @@ public class Transaction {
     @Column(name = "bitcoin")
     private Float bitcoin;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName ="id")
+    private Role roleId;
+
 }

@@ -1,6 +1,7 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
+import com.db.bts.entity.User;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
@@ -34,10 +35,10 @@ public class TransactionsController {
         return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
     }
 
-    @PostMapping()
-    public ResponseEntity<Transaction> addTransaction(@RequestBody @NonNull TransactionModel transactionDTO) throws Exception {
-        Transaction transaction1 = transactionService.addTransaction(transactionDTO);
-        return ResponseEntity.ok().body(transaction1);
+    @PostMapping("/transaction")
+    public void addTransaction(@RequestBody TransactionModel transactionDTO) throws Exception {
+        Transaction transaction = transactionService.addTransaction(transactionDTO);
+//        return new ModelAndView();
     }
 
     @PutMapping("/{id}")

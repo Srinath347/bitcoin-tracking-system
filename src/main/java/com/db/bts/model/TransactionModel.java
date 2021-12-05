@@ -23,6 +23,7 @@ public class TransactionModel {
     private String commissionType;
     private int userId;
     private int traderId;
+    private int roleId;
     private String type;
     private int status;
     private Float bitcoin;
