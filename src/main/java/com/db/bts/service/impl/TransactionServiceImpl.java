@@ -11,6 +11,7 @@ import com.db.bts.model.TransactionModel;
 import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.TransactionTimeModel;
 import com.db.bts.model.UserTransactionAmountModel;
+import com.db.bts.model.*;
 import com.db.bts.repository.TransactionRepository;
 import com.db.bts.service.AccountService;
 import com.db.bts.service.AddressService;
@@ -194,6 +195,21 @@ public class TransactionServiceImpl implements TransactionService{
         logger.info("Date: {}, {}", from, to);
         return Optional.ofNullable(transactionRepository.findTransactionsByDate(from, to))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to fetch transactions"));
+    }
+
+    @Override
+    public TransactionTimeModel findTransactionsStatisticsByDate(Date from, Date to) throws Exception {
+        logger.info("Date: {}, {}", from, to);
+        List<Transaction> transactions = Optional.ofNullable(transactionRepository.findTransactionsByDate(from, to))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to fetch transactions"));
+        logger.info("Count: {}", transactions.size());
+        List<TransactionStatistics> transactionStatistics = Optional.ofNullable(transactionRepository.findTransactionsStatisticsByDate(from, to))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to fetch transactions"));
+        TransactionTimeModel transactionTimeModel = new TransactionTimeModel();
+        transactionTimeModel.setTransactionStatistics(transactionStatistics);
+        transactionTimeModel.setTransactionList(transactions);
+        return transactionTimeModel;
+
     }
 
     private List<Transaction> findTransactionByUserName(String name) throws Exception{

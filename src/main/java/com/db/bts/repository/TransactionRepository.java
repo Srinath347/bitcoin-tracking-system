@@ -2,6 +2,7 @@ package com.db.bts.repository;
 
 import com.db.bts.entity.Transaction;
 import com.db.bts.entity.User;
+import com.db.bts.model.TransactionStatistics;
 import com.db.bts.model.UserTransactionAmountModel;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,7 +31,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("select new com.db.bts.model.UserTransactionAmountModel(sum(t.amount) as totalAmount, t.user.id as userId) from Transaction t where date(t.time) < :to and date(t.time) >= :from group by t.user")
     List<UserTransactionAmountModel> findAmountSum(@Param("from") Date from, @Param("to") Date to);
 
-    @Query("from Transaction t where date(t.time) < :to and date(t.time) >= :from")
+    @Query("from Transaction t where date(t.time) < :to and date(t.time) >= :from and t.status=1")
     List<Transaction> findTransactionsByDate(@Param("from") Date from, @Param("to") Date to);
 
     @Query("from Transaction t where lower(t.type) like lower(concat('%', :type,'%'))")
@@ -44,4 +45,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
     @Query("from Transaction t where t.user.id in :userIds")
     List<Transaction> findTransactionsByUserIds(@Param("userIds") List<Integer> userIds);
+
+    @Query("select new com.db.bts.model.TransactionStatistics(count(t.id) as count, type, sum(t.amount) as amount, sum(t.commissionValue) as commission ) from Transaction t where date(t.time) < :to and date(t.time) >= :from and t.status=1 group by t.type")
+    List<TransactionStatistics> findTransactionsStatisticsByDate(@Param("from") Date from, @Param("to") Date to);
 }

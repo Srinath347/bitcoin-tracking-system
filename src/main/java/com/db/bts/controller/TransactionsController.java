@@ -1,11 +1,10 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Transaction;
-import com.db.bts.entity.User;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.model.TransactionSearchModel;
+import com.db.bts.model.TransactionTimeModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +53,8 @@ public class TransactionsController {
     }
 
     @GetMapping("/time")
-    public ResponseEntity<List<Transaction>> findTransactionByTime(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
-        List<Transaction> transactions = transactionService.findTransactionsByDate(from, to);
+    public ResponseEntity<TransactionTimeModel> findTransactionsStatisticsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
+        TransactionTimeModel transactions = transactionService.findTransactionsStatisticsByDate(from, to);
         return ResponseEntity.ok().body(transactions);
     }
 
