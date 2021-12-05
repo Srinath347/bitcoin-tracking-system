@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.db.bts.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.db.bts.entity.Account;
-import com.db.bts.entity.Admin;
-import com.db.bts.entity.Transaction;
-import com.db.bts.entity.User;
 import com.db.bts.enums.TransactionStatus;
 import com.db.bts.mapper.TransactionDTOMapper;
 import com.db.bts.model.BitcoinPriceModel;
@@ -90,6 +87,16 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public Transaction addTransaction(TransactionModel transactionDTO) throws Exception {
+
+        User user = userService.findUserById(transactionDTO.getUserId());
+        if (transactionDTO.getTraderId() != null && user.getTrader().getId() != transactionDTO.getTraderId()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This Trader is unauthorized to execute transaction on this users behalf");
+        }
+
+        if (transactionDTO.getTraderId() != null && !user.getTrader().getRole().getName().equalsIgnoreCase("trader")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This Admin is not a trader");
+        }
+
         Transaction transaction = new Transaction();
         float bitcoinValue = getBitcoinValue();
         float transactionBitcoins = transactionDTO.getBitcoin();
@@ -140,7 +147,8 @@ public class TransactionServiceImpl implements TransactionService{
             }
         }
 
-        transaction.setUser(userService.findUserById(transactionDTO.getUserId()));
+        transaction.setUser(user);
+        transaction.setRole(getUserRole(3));
         transaction.setStatus(TransactionStatus.ACTIVE.getValue());
         transaction.setAmount(transactionValue);
         transaction.setCommissionValue(commissionValue);
@@ -148,13 +156,10 @@ public class TransactionServiceImpl implements TransactionService{
         transaction.setCommissionType(commissionType);
 
         if (transactionDTO.getTraderId() != null) {
-            transaction.setTrader(adminService.findAdminById(transactionDTO.getTraderId()));
+            Admin trader = adminService.findAdminById(transactionDTO.getTraderId());
+            transaction.setTrader(trader);
+            transaction.setRole(trader.getRole());
         }
-
-        // setting the roleId of the trader itself over here
-        Admin trader = adminService.findAdminById(transactionDTO.getTraderId());
-        //transaction.setTrader(trader);
-        transaction.setRoleId(trader.getRole());
       
         logger.info("Transaction details {}", transaction);
 
@@ -286,6 +291,13 @@ public class TransactionServiceImpl implements TransactionService{
     private float getCommissionPercent(int userId) throws Exception {
         User user = userService.findUserById(userId);
         return user.getMember().getCommissionRate();
+    }
+
+    private Role getUserRole(int roleId) {
+        Role role  = new Role();
+        role.setId(roleId);
+        role.setName("client");
+        return role;
     }
 
     private boolean isEmpty(String value) {
