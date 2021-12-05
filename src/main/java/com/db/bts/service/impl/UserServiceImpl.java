@@ -123,10 +123,6 @@ public class UserServiceImpl implements UserService {
         if(!isEmpty(user.getPhoneNumber())) {
             updatedUser.setPhoneNumber(user.getPhoneNumber());
         }
-        // TODO use User model for update
-//        if(user.getMemberId() != null) {
-//            updatedUser.setMemberId(user.getMemberId());
-//        }
 
         return updatedUser;
     }

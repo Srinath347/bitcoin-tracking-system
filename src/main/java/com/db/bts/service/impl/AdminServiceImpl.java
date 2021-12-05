@@ -93,10 +93,6 @@ public class AdminServiceImpl implements AdminService {
         if(!isEmpty(admin.getPhoneNumber())) {
             updatedAdmin.setPhoneNumber(admin.getPhoneNumber());
         }
-        // TODO use adminModel pojo for update
-//        if(admin.getRoleId() != null) {
-//            updatedAdmin.setRoleId(admin.getRoleId());
-//        }
         return updatedAdmin;
     }
 
