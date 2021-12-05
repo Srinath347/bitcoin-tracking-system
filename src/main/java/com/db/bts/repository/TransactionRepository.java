@@ -25,6 +25,9 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("from Transaction t where t.user = :user")
     List<Transaction> getTransactionByUser(@Param("user") User user);
 
+    @Query("from Transaction t where t.user IN (:user)")
+    List<Transaction> getTransactionByUsers(@Param("user") List<User> users);
+
     @Query("select sum(t.amount) from Transaction t where t.user = :user")
     Float findAmountSumByUser(@Param("user") User user);
 

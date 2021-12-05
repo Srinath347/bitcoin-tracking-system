@@ -41,6 +41,12 @@ public class TransactionsController {
         return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
     }
 
+    @GetMapping("/trader/{id}")
+    public ModelAndView getTransactionByTraderId(@PathVariable(value = "id") int traderId) throws Exception {
+        List<Transaction> transactionList = transactionService.getTransactionByTraderId(traderId);
+        return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
+    }
+
 
     @PostMapping("/transaction")
     public ModelAndView addTransaction(@ModelAttribute TransactionModel transactionDTO) throws Exception {
