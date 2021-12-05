@@ -59,16 +59,20 @@ public class BtsApiController {
 
     @PostMapping("/user/sign_in")
     public ModelAndView userSignIn(@ModelAttribute("user") User user, HttpServletRequest req, HttpServletResponse res, @RequestParam("login_type") String loginType) throws Exception {
-    	
-    	if(loginType.equals("user")) {
+//    	logger.info("loginType : {}", loginType);
+        Admin admin1 = null;
+        if(loginType.equals("user")) {
     		User user1 = userService.userSignIn(user.getEmail(), user.getPassword());
     		req.getSession().setAttribute("user", user1);
     	}
     	if(loginType.equals("admin")){
-    		Admin admin1 = adminService.adminSignIn(user.getEmail(), user.getPassword());
+    		admin1 = adminService.adminSignIn(user.getEmail(), user.getPassword());
     		req.getSession().setAttribute("admin", admin1);
     	}
-        
+        logger.info("Admin: {}", admin1);
+        if(admin1 != null && admin1.getRole().getName().equalsIgnoreCase("manager")) {
+            return new ModelAndView("manager");
+        }
         return new ModelAndView("home");
     }
 
@@ -88,6 +92,11 @@ public class BtsApiController {
     @GetMapping("/about")
     public ModelAndView about() throws Exception {
         return new ModelAndView("about");
+    }
+
+    @GetMapping("/manager")
+    public ModelAndView manager() throws Exception {
+        return new ModelAndView("manager");
     }
 
     @PostMapping("/cancel")
