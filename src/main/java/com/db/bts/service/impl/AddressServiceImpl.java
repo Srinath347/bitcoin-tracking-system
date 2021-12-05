@@ -6,13 +6,13 @@ import com.db.bts.model.AddressModel;
 import com.db.bts.repository.AddressRepository;
 import com.db.bts.service.AddressService;
 import com.db.bts.service.UserService;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -63,4 +63,17 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not fetch address details"));
 		
 	}
+
+    @Override
+    public List<Integer> findUserIdByStreetAddress(String streetAddress) throws Exception {
+        return Optional.ofNullable(addressRepository.findUserIdByStreetAddress(streetAddress))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not fetch user details"));
+
+    }
+
+    @Override
+    public List<Integer> findUserIdByCity(String city) throws Exception {
+        return Optional.ofNullable(addressRepository.findUserIdByCity(city))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not fetch user details"));
+    }
 }

@@ -29,6 +29,15 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("from Transaction t where date(t.time) < :to and date(t.time) >= :from")
     List<Transaction> findTransactionsByDate(@Param("from") Date from, @Param("to") Date to);
 
-    @Query("from Transaction t where lower(t.type) like lower(concat('%', :name,'%'))")
-    List<Transaction> findTransactionByUserName(@Param("name") String name);
+    @Query("from Transaction t where lower(t.type) like lower(concat('%', :type,'%'))")
+    List<Transaction> findTransactionsByType(@Param("type") String type);
+
+    @Query("from Transaction t where lower(t.user.firstName) like lower(concat('%', :name,'%')) or lower(t.user.lastName) like lower(concat('%', :name,'%'))")
+    List<Transaction> findTransactionsByUserName(@Param("name") String name);
+
+    @Query("from Transaction t where t.user.email = :email")
+    List<Transaction> findTransactionsByEmail(@Param("email") String email);
+
+    @Query("from Transaction t where t.user.id in :userIds")
+    List<Transaction> findTransactionsByUserIds(@Param("userIds") List<Integer> userIds);
 }

@@ -44,7 +44,7 @@ public class TransactionsController {
         return ResponseEntity.ok().body("Updated Successfully");
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public ResponseEntity<List<TransactionSearchModel>> findTransactionByCriteria(@RequestParam("value") String value, @RequestParam("field") String field) throws Exception {
         List<TransactionSearchModel> transactions = transactionService.findTransactionByCriteria(value, field);
         return ResponseEntity.ok().body(transactions);
