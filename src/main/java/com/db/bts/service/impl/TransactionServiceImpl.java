@@ -1,12 +1,16 @@
 package com.db.bts.service.impl;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import com.db.bts.entity.*;
+import com.db.bts.enums.TransactionStatus;
+import com.db.bts.mapper.TransactionDTOMapper;
+import com.db.bts.model.*;
+import com.db.bts.repository.TransactionRepository;
+import com.db.bts.service.AccountService;
+import com.db.bts.service.AddressService;
+import com.db.bts.service.TransactionService;
+import com.db.bts.service.UserService;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.db.bts.enums.TransactionStatus;
-import com.db.bts.mapper.TransactionDTOMapper;
-import com.db.bts.model.BitcoinPriceModel;
-import com.db.bts.model.TransactionModel;
-import com.db.bts.model.TransactionSearchModel;
-import com.db.bts.model.TransactionStatistics;
-import com.db.bts.model.TransactionTimeModel;
-import com.db.bts.model.UserTransactionAmountModel;
-import com.db.bts.repository.TransactionRepository;
-import com.db.bts.service.AccountService;
-import com.db.bts.service.AddressService;
-import com.db.bts.service.TransactionService;
-import com.db.bts.service.UserService;
-import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService{
@@ -243,7 +237,14 @@ public class TransactionServiceImpl implements TransactionService{
         List<TransactionStatistics> transactionStatistics = Optional.ofNullable(transactionRepository.findTransactionsStatisticsByDate(from, to))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to fetch transactions"));
         TransactionTimeModel transactionTimeModel = new TransactionTimeModel();
-        transactionTimeModel.setTransactionStatistics(transactionStatistics);
+        for(TransactionStatistics transactionStatistic : transactionStatistics) {
+            if(transactionStatistic.getType().equalsIgnoreCase("buy")) {
+                transactionTimeModel.setBuy(transactionStatistic);
+            } else if(transactionStatistic.getType().equalsIgnoreCase("sell")){
+                transactionTimeModel.setSell(transactionStatistic);
+            }
+        }
+//        transactionTimeModel.setTransactionStatistics(transactionStatistics);
         transactionTimeModel.setTransactionList(transactions);
         return transactionTimeModel;
 
