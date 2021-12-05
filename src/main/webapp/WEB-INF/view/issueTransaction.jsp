@@ -27,7 +27,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<section class="mb-4">
 	<div class="container col-md-6 py-5 mt-4">
-	<form:form action="/bts/transactions/transaction" method="POST" modelAttribute="transaction">
+	<form:form action="/bts/transactions/traderTransaction" method="POST" modelAttribute="transaction">
 	  
 	  <div class="form-outline mb-4">
 	  	

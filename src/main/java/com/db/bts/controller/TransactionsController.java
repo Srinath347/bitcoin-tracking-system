@@ -44,7 +44,7 @@ public class TransactionsController {
     @GetMapping("/trader/{id}")
     public ModelAndView getTransactionByTraderId(@PathVariable(value = "id") int traderId) throws Exception {
         List<Transaction> transactionList = transactionService.getTransactionByTraderId(traderId);
-        return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
+        return new ModelAndView("traderTransactionHistory", "transactionList", transactionList);
     }
 
 
@@ -53,6 +53,13 @@ public class TransactionsController {
         Transaction transaction = transactionService.addTransaction(transactionDTO);
         List<Transaction> transactionList = transactionService.getTransactionByUserId(transaction.getUser().getId());
         return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
+    }
+    
+    @PostMapping("/traderTransaction")
+    public ModelAndView addTransactionTrader(@ModelAttribute TransactionModel transactionDTO) throws Exception {
+        Transaction transaction = transactionService.addTransaction(transactionDTO);
+        List<Transaction> transactionList = transactionService.getTransactionByTraderId(transaction.getTrader().getId());
+        return new ModelAndView("traderTransactionHistory", "transactionList", transactionList);
     }
 //        return new ModelAndView();
 
