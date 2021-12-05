@@ -81,6 +81,14 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
+    public List<Transaction> getTransactionByTraderId(int traderId) throws Exception {
+        List<User> associatedUsersList = userService.findUsersByTraderId(traderId);
+        logger.info("users associated with this Trader are : {}", associatedUsersList.size());
+        return Optional.ofNullable(transactionRepository.getTransactionByUsers(associatedUsersList))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not fetch transactions"));
+    }
+
+    @Override
     public Transaction addTransaction(TransactionModel transactionDTO) throws Exception {
         Transaction transaction = new Transaction();
         float bitcoinValue = getBitcoinValue();
@@ -142,7 +150,6 @@ public class TransactionServiceImpl implements TransactionService{
         if (transactionDTO.getTraderId() != null) {
             transaction.setTrader(adminService.findAdminById(transactionDTO.getTraderId()));
         }
-        // TODO : what does role Id do? who's role Id it is?
 
         // setting the roleId of the trader itself over here
         Admin trader = adminService.findAdminById(transactionDTO.getTraderId());

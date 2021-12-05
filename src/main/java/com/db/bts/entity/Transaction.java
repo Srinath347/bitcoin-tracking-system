@@ -42,7 +42,7 @@ public class Transaction {
     @Column(nullable = false)
     private String type;
 
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)

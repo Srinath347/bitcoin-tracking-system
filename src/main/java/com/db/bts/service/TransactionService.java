@@ -20,6 +20,8 @@ public interface TransactionService {
 
     List<Transaction> getTransactionByUserId(int userId) throws Exception;
 
+    List<Transaction> getTransactionByTraderId(int traderId) throws Exception;
+
     Transaction addTransaction(TransactionModel transactionDTO) throws Exception;
 
     Float findAmountSumByUser(int userId) throws Exception;
