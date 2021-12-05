@@ -16,11 +16,10 @@ import java.util.Date;
 
 public class PaymentModel {
 
-    private int id;
-    private int userId;
+    private int pid;
+    private String userName;
     private float amount;
     private Date time;
     private int traderId;
     private int status;
-
 }
