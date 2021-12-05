@@ -6,10 +6,12 @@ import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.service.impl.TransactionServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -47,6 +49,12 @@ public class TransactionsController {
     @GetMapping("/search")
     public ResponseEntity<List<TransactionSearchModel>> findTransactionByCriteria(@RequestParam("value") String value, @RequestParam("field") String field) throws Exception {
         List<TransactionSearchModel> transactions = transactionService.findTransactionByCriteria(value, field);
+        return ResponseEntity.ok().body(transactions);
+    }
+
+    @GetMapping("/time")
+    public ResponseEntity<List<Transaction>> findTransactionByTime(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
+        List<Transaction> transactions = transactionService.findTransactionsByDate(from, to);
         return ResponseEntity.ok().body(transactions);
     }
 

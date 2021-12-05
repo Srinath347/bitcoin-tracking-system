@@ -1,18 +1,20 @@
 package com.db.bts.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @DynamicInsert
 @Table(name = "transactions")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Transaction {
 
     @Id
@@ -34,6 +36,7 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     @Column(nullable = false)
@@ -44,6 +47,7 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issuer_id", referencedColumnName = "id")
+    @JsonIgnore
     private Admin trader;
 
     @Column(name = "bitcoin")
