@@ -43,4 +43,7 @@ public class Transaction {
     @JoinColumn(name = "issuer_id", referencedColumnName = "id")
     private Admin trader;
 
+    @Column(name = "bitcoin")
+    private Float bitcoin;
+
 }

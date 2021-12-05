@@ -1,8 +1,11 @@
 package com.db.bts.controller.api;
 
 import com.db.bts.entity.Admin;
+import com.db.bts.entity.Audit;
 import com.db.bts.entity.User;
+import com.db.bts.model.TransactionCancelModel;
 import com.db.bts.service.impl.AdminServiceImpl;
+import com.db.bts.service.impl.AuditServiceImpl;
 import com.db.bts.service.impl.UserServiceImpl;
 import lombok.NonNull;
 import org.slf4j.Logger;
@@ -27,6 +30,9 @@ public class BtsApiController {
 
     @Autowired
     private AdminServiceImpl adminService;
+
+    @Autowired
+    private AuditServiceImpl auditService;
     
     @GetMapping("")
    	public ModelAndView loadLogin(Model model) {
@@ -42,7 +48,6 @@ public class BtsApiController {
     	
     	if(loginType.equals("user")) {
     		User user1 = userService.userSignIn(user.getEmail(), user.getPassword());
-    		//System.out.println(user1.toString());
     		req.getSession().setAttribute("user", user1);
     	}
     	if(loginType.equals("admin")){
@@ -69,6 +74,13 @@ public class BtsApiController {
     @GetMapping("/about")
     public ModelAndView about() throws Exception {
         return new ModelAndView("about");
+    }
+
+    @PostMapping("/cancel")
+    public void cancelTransaction(@RequestBody @NonNull TransactionCancelModel transactionCancelModel) throws Exception {
+        logger.info("cancellation request");
+        Audit audit = auditService.cancelTransaction(transactionCancelModel);
+        logger.info("audit {}", audit);
     }
 
 }
