@@ -38,7 +38,7 @@ public class TransactionDTOMapper {
         transaction.setUser(user);
         Admin admin = adminService.findAdminById(transactionDTO.getTraderId());
         transaction.setTrader(admin);
-        transaction.setBitcoin(transactionDTO.getBitcoin() == null? 0f : transaction.getBitcoin());
+        transaction.setBitcoin(transactionDTO.getBitcoin() == null? 0f : transactionDTO.getBitcoin());
         return transaction;
     }
 }

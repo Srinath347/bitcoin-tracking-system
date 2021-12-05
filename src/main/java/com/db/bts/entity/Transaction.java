@@ -6,7 +6,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -48,5 +47,9 @@ public class Transaction {
 
     @Column(name = "bitcoin")
     private Float bitcoin;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName ="id")
+    private Role roleId;
 
 }
