@@ -1,7 +1,6 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Payment;
-import com.db.bts.model.PaymentStatusModel;
 import com.db.bts.service.impl.PaymentServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,8 @@ public class PaymentsController {
     }
 
     @PutMapping("/payment/status")
-    public ResponseEntity<Payment> updatePaymentStatus(@RequestBody @NonNull PaymentStatusModel paymentStatusModel) throws Exception {
-        Payment payment = paymentService.updatePaymentStatus(paymentStatusModel);
+    public ResponseEntity<Payment> updatePaymentStatus(@RequestParam("paymentId") int paymentId, @RequestParam("status") String status) throws Exception {
+        Payment payment = paymentService.updatePaymentStatus(paymentId, status);
         return ResponseEntity.ok().body(payment);
     }
 }

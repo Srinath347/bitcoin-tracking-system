@@ -70,10 +70,10 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment updatePaymentStatus(PaymentStatusModel paymentStatusModel) throws Exception {
-        Payment payment = Optional.ofNullable(findPaymentById(paymentStatusModel.getPaymentId()))
+    public Payment updatePaymentStatus(int paymentId, String status) throws Exception {
+        Payment payment = Optional.ofNullable(findPaymentById(paymentId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment not found"));
-        if(paymentStatusModel.getStatus().equalsIgnoreCase("accepted")) {
+        if(status.equalsIgnoreCase("accepted")) {
             payment.setStatus(PaymentStatus.ACCEPTED.getValue());
         } else {
             payment.setStatus(PaymentStatus.REJECTED.getValue());

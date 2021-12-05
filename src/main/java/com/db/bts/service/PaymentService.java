@@ -1,7 +1,6 @@
 package com.db.bts.service;
 
 import com.db.bts.entity.Payment;
-import com.db.bts.model.PaymentStatusModel;
 
 import java.util.List;
 
@@ -13,5 +12,5 @@ public interface PaymentService {
 
     public List<Payment> findPaymentsByTraderId(int traderId) throws Exception;
 
-    public Payment updatePaymentStatus(PaymentStatusModel paymentStatusModel) throws Exception;
+    public Payment updatePaymentStatus(int paymentId, String status) throws Exception;
 }
