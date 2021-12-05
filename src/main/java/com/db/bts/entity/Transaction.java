@@ -55,6 +55,6 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName ="id")
-    private Role roleId;
+    private Role role;
 
 }
