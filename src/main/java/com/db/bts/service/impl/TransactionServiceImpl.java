@@ -9,6 +9,7 @@ import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.UserTransactionAmountModel;
 import com.db.bts.repository.TransactionRepository;
 import com.db.bts.service.AccountService;
+import com.db.bts.service.AddressService;
 import com.db.bts.service.TransactionService;
 import com.db.bts.service.UserService;
 import org.slf4j.Logger;
@@ -39,6 +40,9 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    private AddressService addressService;
 
     @Override
     public Transaction findTransactionById(int transactionId) throws Exception {
@@ -99,21 +103,40 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public List<TransactionSearchModel> findTransactionByCriteria(String value, String field) throws Exception {
+        List<TransactionSearchModel> transactionSearchModels = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
+        logger.info("Field: {}, Value: {}", field, value);
         if(field.equalsIgnoreCase("name")) {
-            List<Transaction> transactions =  findTransactionByUserName(value);
-            List<TransactionSearchModel> transactionSearchModels = new ArrayList<>();
+            transactions =  findTransactionByUserName(value);
+        }
+        if(field.equalsIgnoreCase("type")) {
+            transactions =  findTransactionByType(value);
+        }
+        if(field.equalsIgnoreCase("email")) {
+            transactions =  findTransactionsByEmail(value);
+        }
+        if(field.equalsIgnoreCase("streetAddress")) {
+            List<Integer> userIds = addressService.findUserIdByStreetAddress(value);
+            transactions =  findTransactionsByUserIds(userIds);
+        }
+        if(field.equalsIgnoreCase("city")) {
+            List<Integer> userIds = addressService.findUserIdByCity(value);
+            transactions =  findTransactionsByUserIds(userIds);
+        }
+        if(transactions.size() > 0) {
             for ( Transaction transaction : transactions) {
-                logger.info("Transactuons {}", transaction.getUser().getEmail());
+                logger.info("Transactions {}", transaction.getId());
                 TransactionSearchModel transactionSearchModel = new TransactionSearchModel();
+                transactionSearchModel.setTime(transaction.getTime());
                 transactionSearchModel.setAmount(transaction.getAmount());
                 transactionSearchModel.setCommissionType(transaction.getCommissionType());
                 transactionSearchModel.setUserName(transaction.getUser().getFirstName()+" "+ transaction.getUser().getLastName());
                 transactionSearchModel.setCommissionValue(transaction.getCommissionValue());
                 transactionSearchModels.add(transactionSearchModel);
             }
-            return transactionSearchModels;
+        return transactionSearchModels;
         }
-        return new ArrayList<TransactionSearchModel>();
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "no transactions found for " + field + ": " + value);
     }
 
     @Override
@@ -126,8 +149,23 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     private List<Transaction> findTransactionByUserName(String name) throws Exception{
-        return Optional.ofNullable(transactionRepository.findTransactionByUserName(name))
+        return Optional.ofNullable(transactionRepository.findTransactionsByUserName(name))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No transactions found for user"));
+    }
+
+    private List<Transaction> findTransactionByType(String type) throws Exception{
+        return Optional.ofNullable(transactionRepository.findTransactionsByType(type))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No transactions found for type: " + type));
+    }
+
+    private List<Transaction> findTransactionsByEmail(String email) throws Exception{
+        return Optional.ofNullable(transactionRepository.findTransactionsByEmail(email))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No transactions found for email: " + email));
+    }
+
+    private List<Transaction> findTransactionsByUserIds(List<Integer> userIds) throws Exception{
+        return Optional.ofNullable(transactionRepository.findTransactionsByUserIds(userIds))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No transactions found for street address"));
     }
 
     private Boolean checkIsCurrencyAvailable(float amount, int userId) throws Exception {
