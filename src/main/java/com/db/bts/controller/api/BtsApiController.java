@@ -28,13 +28,26 @@ public class BtsApiController {
     @Autowired
     private AdminServiceImpl adminService;
     
+    @GetMapping("/logout")
+   	public ModelAndView logout(Model model,HttpServletRequest req) {
+    	
+    	req.getSession().invalidate();
+    	model.addAttribute("user", new User());
+   		return new ModelAndView("login");
+   	}
+    
     @GetMapping("")
    	public ModelAndView loadLogin(Model model) {
     	
     	model.addAttribute("user", new User());
    		return new ModelAndView("login");
    	}
-
+    
+    @GetMapping("/home")
+   	public ModelAndView loadHomePage(Model model, HttpServletRequest req) {
+    	
+   		return new ModelAndView("home");
+   	}
     
 
     @PostMapping("/user/sign_in")

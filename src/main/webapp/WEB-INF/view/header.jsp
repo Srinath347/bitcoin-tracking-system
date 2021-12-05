@@ -25,35 +25,33 @@
 		
 	%>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+  
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top header-color">
+  
     <div class="container-fluid">
-      <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarExample01"
-              aria-controls="navbarExample01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-      >
-        <i class="fa fa-bars"></i>
-      </button>
+      
       <div class="collapse navbar-collapse" id="navbarExample01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
+        <li class="nav-item">
+           <img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/bts/user/<%=user.getId() %>">Profile</a>
+          <li class="nav-item active" style="padding-top: 30px">
+            <a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Transaction</a>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/user/<%=user.getId()%>">Profile</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/transactions/<%=user.getId()%>">Transaction</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
             <a class="nav-link" href="/bts/account/<%=user.getId()%>">Wallet</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/api/about">About</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/api/logout">Logout</a>
           </li>
           </ul>
       </div>

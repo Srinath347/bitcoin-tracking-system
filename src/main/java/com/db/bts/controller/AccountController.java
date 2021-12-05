@@ -5,6 +5,9 @@ import com.db.bts.entity.Admin;
 import com.db.bts.entity.User;
 import com.db.bts.service.impl.AccountServiceImpl;
 import lombok.NonNull;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +27,11 @@ public class AccountController {
     private AccountServiceImpl accountService;
 
     @GetMapping("/account/{id}")
-    public ModelAndView getAccountById(@PathVariable(value = "id") int accountId) throws Exception {
+    public ModelAndView getAccountById(@PathVariable(value = "id") int accountId, HttpServletRequest req) throws Exception {
         logger.info("GET request for account with id {}", accountId);
         Account account = accountService.findAccountById(accountId);
         logger.info("account details : {}", account);
+        req.getSession().setAttribute("added", "false");
         return new ModelAndView("wallet","account", account);
     }
 
@@ -60,12 +64,13 @@ public class AccountController {
         }
     }
 
-    @PutMapping("/wallet/add")
-    public ModelAndView depositMoney(@ModelAttribute("userId") int userId,
-                                     @ModelAttribute("amount") float amount) throws Exception {
+    @GetMapping("/account/wallet/add")
+    public ModelAndView depositMoney(@RequestParam("userId") int userId,
+                                     @RequestParam("amount") float amount, HttpServletRequest req) throws Exception {
         logger.info("update balance request for userId : {}, amount: {}", userId, amount);
         Account account = accountService.addAmountToUserAccount(userId, amount);
         logger.info("updated account: {}", account);
-        return new ModelAndView("wallet");
+        req.getSession().setAttribute("added", "true");
+        return new ModelAndView("wallet","account",account);
     }
 }

@@ -20,8 +20,20 @@
 
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-	
-	<section class="login-background">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top login-header">
+  
+    <div class="container-fluid">
+      
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+           <img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
+         </li>
+        </ul>
+      </div>
+     </div>
+     </nav>
+	<section>
 	  <form:form action="/bts/user" method="POST" modelAttribute="user">
 	  <div class="container py-5 h-100">
 	  

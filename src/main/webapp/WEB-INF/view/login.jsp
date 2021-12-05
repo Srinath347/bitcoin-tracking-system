@@ -25,10 +25,22 @@ session1.invalidate();
 
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-	
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top login-header">
+  
+    <div class="container-fluid">
+      
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+           <img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
+         </li>
+        </ul>
+      </div>
+     </div>
+     </nav>
      	
 	  
-	<section class="login-background ">
+	<section>
 	  <form:form action="/bts/api/user/sign_in" method="POST" modelAttribute="user">
 	  
 	  <div class="container py-5 h-100">
@@ -68,7 +80,7 @@ session1.invalidate();
 	              </div>
 	
 	              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-	
+					<input type="hidden" id="loggedIn" value="1">
 	              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>           
 	
 	            </div>
