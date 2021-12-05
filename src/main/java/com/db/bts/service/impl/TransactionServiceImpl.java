@@ -1,23 +1,11 @@
 package com.db.bts.service.impl;
 
 
-import com.db.bts.entity.Account;
-import com.db.bts.entity.Transaction;
-import com.db.bts.entity.User;
-import com.db.bts.enums.TransactionStatus;
-import com.db.bts.mapper.TransactionDTOMapper;
-import com.db.bts.model.BitcoinPriceModel;
-import com.db.bts.model.TransactionModel;
-import com.db.bts.model.TransactionSearchModel;
-import com.db.bts.model.TransactionTimeModel;
-import com.db.bts.model.UserTransactionAmountModel;
-import com.db.bts.model.*;
-import com.db.bts.repository.TransactionRepository;
-import com.db.bts.service.AccountService;
-import com.db.bts.service.AddressService;
-import com.db.bts.service.TransactionService;
-import com.db.bts.service.UserService;
-import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +14,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import com.db.bts.entity.Account;
+import com.db.bts.entity.Admin;
+import com.db.bts.entity.Transaction;
+import com.db.bts.entity.User;
+import com.db.bts.enums.TransactionStatus;
+import com.db.bts.mapper.TransactionDTOMapper;
+import com.db.bts.model.BitcoinPriceModel;
+import com.db.bts.model.TransactionModel;
+import com.db.bts.model.TransactionSearchModel;
+import com.db.bts.model.TransactionStatistics;
+import com.db.bts.model.TransactionTimeModel;
+import com.db.bts.model.UserTransactionAmountModel;
+import com.db.bts.repository.TransactionRepository;
+import com.db.bts.service.AccountService;
+import com.db.bts.service.AddressService;
+import com.db.bts.service.TransactionService;
+import com.db.bts.service.UserService;
+import com.google.gson.Gson;
 
 @Service
 public class TransactionServiceImpl implements TransactionService{
@@ -50,6 +55,7 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
     private AddressService addressService;
+    
 
     @Override
     public Transaction findTransactionById(int transactionId) throws Exception {
@@ -132,10 +138,19 @@ public class TransactionServiceImpl implements TransactionService{
         transaction.setCommissionValue(commissionValue);
         transaction.setBitcoin(transactionBitcoins);
         transaction.setCommissionType(commissionType);
+
         if (transactionDTO.getTraderId() != null) {
             transaction.setTrader(adminService.findAdminById(transactionDTO.getTraderId()));
         }
         // TODO : what does role Id do? who's role Id it is?
+
+        // setting the roleId of the trader itself over here
+        Admin trader = adminService.findAdminById(transactionDTO.getTraderId());
+        //transaction.setTrader(trader);
+        transaction.setRoleId(trader.getRole());
+      
+        logger.info("Transaction details {}", transaction);
+
 
         account.setBitcoin(existingBitcoins);
         account.setBalance(existingBalance);

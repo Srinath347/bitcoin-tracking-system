@@ -27,6 +27,13 @@ public class TransactionsController {
         return new ModelAndView("userBuySell");
     }
 
+    @GetMapping("/transactionHistory")
+    public ModelAndView viewTransactionHistoryForAdmin() throws Exception {
+        
+        return new ModelAndView("traderTransactionHistory");
+    }
+
+    
 
     @GetMapping("/{id}")
     public ModelAndView getTransactionByUserId(@PathVariable(value = "id") int userId) throws Exception {
@@ -34,11 +41,24 @@ public class TransactionsController {
         return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
     }
 
+
     @PostMapping("/transaction")
-    public void addTransaction(@RequestBody TransactionModel transactionDTO) throws Exception {
+    public ModelAndView addTransaction(@ModelAttribute TransactionModel transactionDTO) throws Exception {
         Transaction transaction = transactionService.addTransaction(transactionDTO);
-//        return new ModelAndView();
+        List<Transaction> transactionList = transactionService.getTransactionByUserId(transaction.getUser().getId());
+        return new ModelAndView("userTransactionHistory", "transactionList", transactionList);
     }
+//        return new ModelAndView();
+
+	/*
+	 * @PostMapping("") public ResponseEntity<Transaction>
+	 * addTransaction(@RequestBody @NonNull TransactionModel transactionDTO) throws
+	 * Exception { Transaction transaction1 =
+	 * transactionService.addTransaction(transactionDTO); return
+	 * ResponseEntity.ok().body(transaction1);
+	 * 
+	 * }
+	 */
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateStatus(@PathVariable(value = "id") int transactionId) throws Exception {
@@ -47,9 +67,9 @@ public class TransactionsController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<TransactionSearchModel>> findTransactionByCriteria(@RequestParam("value") String value, @RequestParam("field") String field) throws Exception {
+    public ModelAndView findTransactionByCriteria(@RequestParam("value") String value, @RequestParam("field") String field) throws Exception {
         List<TransactionSearchModel> transactions = transactionService.findTransactionByCriteria(value, field);
-        return ResponseEntity.ok().body(transactions);
+        return new ModelAndView("traderTransactionHistory", "transactionList", transactions);
     }
 
     @GetMapping("/time")

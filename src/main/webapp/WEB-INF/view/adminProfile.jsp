@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Profile</title>
+	<title>Admin Profile</title>
 
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -36,7 +36,7 @@
 	                style="width: 80px;"
 	              /> -->
 	          
-	              <h5>${user.firstName}&nbsp;${user.lastName}</h5>
+	              <h5>${admin.firstName}&nbsp;${admin.lastName}</h5>
 	              
 	            <!--   <button class="edit-btn"><i class="fa fa-edit" ></i></button> -->
 	     		  
@@ -49,47 +49,19 @@
 	                <div class="row pt-1">
 	                  <div class="col-6 mb-3">
 	                    <h6>Email</h6>
-	                    <%-- <form:input class="text-muted" type="text" path="email" id="email"/> --%><p class="text-muted">${user.email}</p>
+	                    <%-- <form:input class="text-muted" type="text" path="email" id="email"/> --%><p class="text-muted">${admin.email}</p>
 	                  </div>
 	                  <div class="col-6 mb-3">
 	                    <h6>Phone</h6>
-	                    <p class="text-muted">${user.phoneNumber}</p>
+	                    <p class="text-muted">${admin.phoneNumber}</p>
 	                  </div>
-	                </div>
-	                <div class="row pt-1">
 	                  <div class="col-6 mb-3">
 	                    <h6>Cell Number</h6>
-	                    <p class="text-muted">${user.cellNumber}</p>
-	                  </div>
-	                  <div class="col-6 mb-3">
-	                    <h6>Password</h6>
-	                    <p class="text-muted"><a href="#">CHANGE</a></p>
+	                    <p class="text-muted">${admin.cellNumber}</p>
 	                  </div>
 	                </div>
-	                <h6>Address</h6>
-	                <hr class="mt-0 mb-4">
-	                <div class="row pt-1">
-	                  <div class="col-6 mb-3">
-	                    <h6>Street Address</h6>
-	                    <p class="text-muted">${address.street}</p>
-	                  </div>
-	                  <div class="col-6 mb-3">
-	                    <h6>City</h6>
-	                    <p class="text-muted">${address.city}</p>
-	                  </div>
-	                </div>
+	             
 	                
-	                <div class="row pt-1">
-	                  <div class="col-6 mb-3">
-	                    <h6>State</h6>
-	                    <p class="text-muted">${address.state}</p>
-	                  </div>
-	                  <div class="col-6 mb-3">
-	                    <h6>Zipcode</h6>
-	                    <p class="text-muted">${address.zipcode}</p>
-	                  </div>
-	                </div>
-	              
 	              </div>
 	            </div>
 	          </div>

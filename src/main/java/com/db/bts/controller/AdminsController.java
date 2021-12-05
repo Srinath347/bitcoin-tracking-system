@@ -1,6 +1,8 @@
 package com.db.bts.controller;
 
+import com.db.bts.entity.Address;
 import com.db.bts.entity.Admin;
+import com.db.bts.entity.User;
 import com.db.bts.service.impl.AdminServiceImpl;
 import lombok.NonNull;
 import org.slf4j.Logger;
@@ -8,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/bts")
@@ -19,13 +23,18 @@ public class AdminsController {
 
     @Autowired
     private AdminServiceImpl adminService;
+    
+    
 
     @GetMapping("/admin/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable(value = "id") int adminId) throws Exception {
+    public ModelAndView getAdminById(@PathVariable(value = "id") int adminId, Model model) throws Exception {
         logger.info("GET request for admin with id {}", adminId);
         Admin admin = adminService.findAdminById(adminId);
         logger.info("admin details : {}", admin);
-        return ResponseEntity.ok().body(admin);
+       
+        return new ModelAndView("adminProfile","admin", admin);
+       
+        
     }
 
     @PostMapping("/admin")
