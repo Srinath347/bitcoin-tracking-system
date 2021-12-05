@@ -29,7 +29,7 @@ public class Scheduler {
     @Autowired
     UserService userService;
 
-    @Scheduled(cron = "${cron.minute.expression}")
+    @Scheduled(cron = "${cron.expression}")
     public void updateUserStatus() throws Exception {
 
         Date prev = new Date();
