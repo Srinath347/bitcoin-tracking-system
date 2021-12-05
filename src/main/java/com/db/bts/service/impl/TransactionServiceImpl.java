@@ -214,8 +214,11 @@ public class TransactionServiceImpl implements TransactionService{
                 transactionSearchModel.setTime(transaction.getTime());
                 transactionSearchModel.setAmount(transaction.getAmount());
                 transactionSearchModel.setCommissionType(transaction.getCommissionType());
-                transactionSearchModel.setUserName(transaction.getUser().getFirstName()+" "+ transaction.getUser().getLastName());
+                transactionSearchModel.setUser(transaction.getUser());
                 transactionSearchModel.setCommissionValue(transaction.getCommissionValue());
+                transactionSearchModel.setTrader(transaction.getTrader());
+                transactionSearchModel.setBitcoin(transaction.getBitcoin());
+                transactionSearchModel.setType(transaction.getType());
                 transactionSearchModels.add(transactionSearchModel);
             }
         return transactionSearchModels;

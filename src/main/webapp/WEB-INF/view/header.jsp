@@ -81,7 +81,7 @@
             <a class="nav-link" href="/bts/admin/<%=admin.getId()%>">Profile</a>
           </li>
           <li class="nav-item" style="padding-top: 30px">
-            <a class="nav-link" href="/bts/transactions/transactionHistory">Users' Transaction History</a>
+            <a class="nav-link" href="/bts/transactions/trader/<%=admin.getId()%>">Users' Transaction History</a>
           </li>
           <li class="nav-item" style="padding-top: 30px">
             <a class="nav-link" href="/bts/users/trader/<%=admin.getId()%>">Issue Transaction</a>

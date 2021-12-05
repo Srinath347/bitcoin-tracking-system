@@ -56,6 +56,8 @@ $(document).ready(function() {
 			    <tr>
 			      <th class="th-sm">No.
 			      </th>
+			      <th class="th-sm">User name
+			      </th>
 			      <th class="th-sm">Transaction Date
 			      </th>
 			      <th class="th-sm">Amount
@@ -70,6 +72,8 @@ $(document).ready(function() {
 			      </th>
 			      <th class="th-sm">Bitcoin
 			      </th>
+			      <th class="th-sm">Action
+			      </th>
 			      
 			    </tr>
 			  </thead>
@@ -77,13 +81,16 @@ $(document).ready(function() {
 			  <c:forEach var="i" items="${transactionList}" varStatus="j">
 			   <tr>
 			      <td>${j.count}</td>
+			      <td>${i.user.firstName} ${i.user.lastName}</td>
 			      <td>${i.time}</td>
 			      <td>${i.amount }</td>
 			      <td>${i.type}</td>
 			      <td>${i.commissionValue}</td>
 			      <td>${i.commissionType}</td>
-			      <td>${i.issuerName}</td>
+			      <td>${i.trader.firstName} ${i.trader.lastName}</td>
 			      <td>${i.bitcoin}</td>
+			      <td><a href="#"><button id="cancel" class="btn btn-dark">Cancel</button></a>
+			      
 			      
 			    </tr>
 			  </c:forEach>
@@ -92,6 +99,7 @@ $(document).ready(function() {
 			   <tr>
 			   	<th>No.
 			      </th>
+			      <th>User name</th>
 			     <th>Transaction Date
 			     </th>
 			     <th>Amount
@@ -102,6 +110,9 @@ $(document).ready(function() {
 			     </th>
 			     <th>Commission Type
 			     </th>
+			     <th>Issuer name</th>
+			     <th>Bitcoin</th>
+			     <th>Action</th>
 			   </tr>
 			  </tfoot>
 			
