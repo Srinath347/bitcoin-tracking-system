@@ -83,6 +83,7 @@ CREATE TABLE transactions
     amount float(50) NOT NULL,
     commission_value float NOT NULL,
     commission_type VARCHAR(30) NOT NULL,
+    bitcoin float(50) DEFAULT 0.0,
     user_id int NOT NULL,
     type VARCHAR(50) DEFAULT NULL,
     status int DEFAULT 0,
