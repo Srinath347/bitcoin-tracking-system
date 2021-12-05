@@ -1,7 +1,6 @@
 package com.db.bts.controller;
 
 import com.db.bts.entity.Payment;
-import com.db.bts.model.PaymentModel;
 import com.db.bts.model.PaymentStatusModel;
 import com.db.bts.service.impl.PaymentServiceImpl;
 import lombok.NonNull;
@@ -31,9 +30,9 @@ public class PaymentsController {
     }
 
     @GetMapping("/payments/trader/{id}")
-    public ResponseEntity<List<PaymentModel>> findPaymentsByTraderId(@PathVariable(value = "id") int traderId) throws Exception {
-        List<PaymentModel> paymentModels = paymentService.findPaymentsByTraderId(traderId);
-        return ResponseEntity.ok().body(paymentModels);
+    public ResponseEntity<List<Payment>> findPaymentsByTraderId(@PathVariable(value = "id") int traderId) throws Exception {
+        List<Payment> payments = paymentService.findPaymentsByTraderId(traderId);
+        return ResponseEntity.ok().body(payments);
     }
 
     @PutMapping("/payment/status")

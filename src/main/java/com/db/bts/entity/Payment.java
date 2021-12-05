@@ -17,8 +17,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pid;
 
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @Column(name = "amount")
     private float amount;
@@ -27,8 +28,9 @@ public class Payment {
     @CreationTimestamp
     private Date time;
 
-    @Column(name = "trader_id", nullable = false)
-    private int trader_id;
+    @ManyToOne
+    @JoinColumn(name = "trader_id", referencedColumnName ="id")
+    private Admin trader;
 
     @ColumnDefault("0")
     private int status;
