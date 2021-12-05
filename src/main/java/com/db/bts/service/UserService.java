@@ -23,4 +23,6 @@ public interface UserService {
     public User updateMembershipStatusById(Integer userId, MembershipNameModel status) throws Exception;
 
     public Admin findTraderByUserId(Integer userId) throws Exception;
+
+    public List<User> findUsersByTraderId(Integer traderId) throws Exception;
 }

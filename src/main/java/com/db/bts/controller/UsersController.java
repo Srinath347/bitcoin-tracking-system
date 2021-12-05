@@ -8,10 +8,6 @@ import com.db.bts.service.AddressService;
 import com.db.bts.service.MembershipService;
 import com.db.bts.service.impl.UserServiceImpl;
 import lombok.NonNull;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bts")
@@ -93,5 +91,13 @@ public class UsersController {
         User updatedUser = userService.updateMembershipStatusById(userId, status);
         logger.info("User details updated successfully");
         return ResponseEntity.ok().body(updatedUser);
+    }
+
+    @GetMapping("/users/trader/{id}")
+    public ResponseEntity<List<User>> findUsersByTraderId(@PathVariable(value = "id") int traderId) throws Exception {
+        logger.info("GET request for admin with id {}", traderId);
+        List<User> users = userService.findUsersByTraderId(traderId);
+        logger.info("user details : {}", users);
+        return ResponseEntity.ok().body(users);
     }
 }
