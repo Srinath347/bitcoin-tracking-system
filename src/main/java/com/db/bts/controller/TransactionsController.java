@@ -85,10 +85,17 @@ public class TransactionsController {
         return new ModelAndView("traderTransactionHistory", "transactionList", transactions);
     }
 
+//    @GetMapping("/time")
+//    public ResponseEntity<TransactionTimeModel> findTransactionsStatisticsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
+//        TransactionTimeModel transactions = transactionService.findTransactionsStatisticsByDate(from, to);
+//        return ResponseEntity.ok().body(transactions);
+//    }
+
     @GetMapping("/time")
-    public ResponseEntity<TransactionTimeModel> findTransactionsStatisticsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
+    public ModelAndView findTransactionsStatisticsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
         TransactionTimeModel transactions = transactionService.findTransactionsStatisticsByDate(from, to);
-        return ResponseEntity.ok().body(transactions);
+        System.out.println("Transactions -->" + transactions);
+        return new ModelAndView("manager","transactionStatistics", transactions);
     }
 
 }

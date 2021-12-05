@@ -110,7 +110,7 @@
 	        	<img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
 	       	</li>
 	       	<li class="nav-item active" style="padding-top: 30px">
-	         	<a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
+	         	<a class="nav-link" aria-current="page" href="/bts/api/manager">Home</a>
 	       	</li>
 			  <li class="nav-item" style="padding-top: 30px">
 	            <a class="nav-link" href="/bts/admin/<%=admin.getId()%>">Profile</a>
