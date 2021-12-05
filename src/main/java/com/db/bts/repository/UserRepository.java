@@ -30,4 +30,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u.trader from User u where u.id = :id")
     Admin findTraderByUserId(@Param("id") Integer userId);
+
+    @Query("from User u where u.trader.id = :id")
+    List<User> findUsersByTraderId(@Param("id") Integer traderId);
 }

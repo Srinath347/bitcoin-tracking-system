@@ -110,6 +110,12 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not find trader details"));
     }
 
+    @Override
+    public List<User> findUsersByTraderId(Integer traderId) throws Exception {
+        return Optional.ofNullable(userRepository.findUsersByTraderId(traderId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not find trader details"));
+    }
+
     private User validateAndUpdateUserAttributes(User existingUser, User user) throws Exception {
         User updatedUser = existingUser;
         if(!isEmpty(user.getEmail()) && !existingUser.getEmail().equals(user.getEmail())) {
