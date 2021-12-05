@@ -3,10 +3,12 @@ package com.db.bts.repository;
 import com.db.bts.entity.Transaction;
 import com.db.bts.entity.User;
 import com.db.bts.model.UserTransactionAmountModel;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
 
+    @Transactional
+    @Modifying
     @Query("update Transaction t set t.status = :status WHERE t.id = :transactionId")
     void updateStatus(@Param("transactionId") int id, @Param("status") int status);
 
