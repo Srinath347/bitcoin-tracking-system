@@ -67,7 +67,7 @@ document.getElementById('amount').value=null;
 	                	
 						if(session1.getAttribute("added").equals("true")){%>
 							<div class="form-outline form-white mb-4">
-	                		<h6>Amount added successfully!!</h6>
+	                		<h6>Payment request sent successfully!!</h6>
 	                		<h6><label class="form-label">Want to add amount again?</label></h6>
 	                		<a href='http://localhost:9000/bts/account/${account.user.id}'><button class="btn btn-outline-dark btn-sm mt-2 px-5">Click here</button></a>
 	              			</div>

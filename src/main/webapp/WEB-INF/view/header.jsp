@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <%@ page import="com.db.bts.entity.User"%>
 <%@ page import="com.db.bts.entity.Admin"%>
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top header-color">
 	<%	
 	HttpSession session1= request.getSession(false);
 	String member = "none";
@@ -22,22 +23,25 @@
 		if(session1!=null){
 			admin= (Admin) session1.getAttribute("admin");
 		}
-		
-	%>
+	  	  
+
+	
+	
+  if(user!=null){	%>
   <!-- Navbar -->
   
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top header-color">
-  
-    <div class="container-fluid">
+    	  <div class="container-fluid">
       
-      <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-           <img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
-          </li>
-          <li class="nav-item active" style="padding-top: 30px">
-            <a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
-          </li>
+      		<div class="collapse navbar-collapse" id="navbarExample01">
+        	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        	<li class="nav-item">
+           		<img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
+          	</li>
+          	<li class="nav-item active" style="padding-top: 30px">
+            	<a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
+          	</li>
+  
+  
           <li class="nav-item" style="padding-top: 30px">
             <a class="nav-link" href="/bts/user/<%=user.getId()%>">Profile</a>
           </li>
@@ -56,6 +60,74 @@
           </ul>
       </div>
     </div>
+    <%}
+  else if(admin!=null)
+  {
+	  if(admin.getRole().getId()==2){	  
+  	%>
+  		
+  
+    	<div class="container-fluid">
+      
+      	<div class="collapse navbar-collapse" id="navbarExample01">
+     	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+     	<li class="nav-item">
+        	<img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
+       	</li>
+       	<li class="nav-item active" style="padding-top: 30px">
+         	<a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
+       	</li>
+		  <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/admin/<%=admin.getId()%>">Profile</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/transactions/transactionHistory">Users' Transaction History</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/users/trader/<%=admin.getId()%>">Issue Transaction</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/payments/trader/<%=admin.getId()%>">Pending Payments</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px ">
+            <a class="nav-link" href="/bts/api/about">About</a>
+          </li>
+          <li class="nav-item" style="padding-top: 30px">
+            <a class="nav-link" href="/bts/api/logout">Logout</a>
+          </li>
+          </ul>
+      </div>
+    </div>
+	
+ <%
+	  }else{%>
+		  
+		  <div class="container-fluid">
+	      
+	      	<div class="collapse navbar-collapse" id="navbarExample01">
+	     	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	     	<li class="nav-item">
+	        	<img alt="" src="<%=request.getContextPath() %>/image/logo.jpg">
+	       	</li>
+	       	<li class="nav-item active" style="padding-top: 30px">
+	         	<a class="nav-link" aria-current="page" href="/bts/api/home">Home</a>
+	       	</li>
+			  <li class="nav-item" style="padding-top: 30px">
+	            <a class="nav-link" href="/bts/admin/<%=admin.getId()%>">Profile</a>
+	          </li>
+	          <li class="nav-item" style="padding-top: 30px ">
+	            <a class="nav-link" href="/bts/api/about">About</a>
+	          </li>
+	          <li class="nav-item" style="padding-top: 30px">
+	            <a class="nav-link" href="/bts/api/logout">Logout</a>
+	          </li>
+	          </ul>
+	      </div>
+	    </div>
+		  
+	  <%}
+  }
+  %>
        
   <!-- Navbar -->
 	<%
@@ -81,10 +153,9 @@
 	<%}else{ %>
 	
 		<div class="nav-item d-flex right-items mr-5">
-              <%=admin.getFirstName()%>&nbsp;<%=admin.getLastName() %>
+              <%=admin.getFirstName()%>&nbsp;<%=admin.getLastName()%>
               <a class="nav-link" href="#">
                <i class="fa fa-bitcoin" style="color:#000000; font-size:24px;"></i>
-                   
               </a>
         </div>
 	<%} %>

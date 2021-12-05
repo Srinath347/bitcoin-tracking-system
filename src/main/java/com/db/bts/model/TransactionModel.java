@@ -16,15 +16,18 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionModel {
 
-    private int id;
-    private Date time;
-    private float amount;
-    private float commissionValue;
-    private String commissionType;
-    private int userId;
-    private Integer traderId;
-    private Integer roleId;
-    private String type;
-    private int status;
-    private Float bitcoin;
+	private int id;
+	private Date time;
+	// mandatory
+	private float bitcoin;
+	private String commissionType;
+	private int userId;
+	private String type;
+	// mandatory when trader initiates
+	private Integer traderId;
+	private float amount;
+	private float commissionValue;
+	private Integer roleId;
+	private int status;
+
 }
