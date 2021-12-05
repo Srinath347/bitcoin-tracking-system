@@ -1,10 +1,11 @@
 package com.db.bts.entity;
 
 import lombok.Data;
-
-import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "payments")
@@ -17,18 +18,19 @@ public class Payment {
     private int pid;
 
     @Column(name = "user_id", nullable = false)
-    private String userId;
+    private int userId;
 
     @Column(name = "amount")
-    private String amount;
+    private float amount;
 
     @Column(name = "time", nullable = false)
-    private String time;
+    @CreationTimestamp
+    private Date time;
 
     @Column(name = "trader_id", nullable = false)
-    private String trader_id;
+    private int trader_id;
 
-    @Column(name = "status")
-    private String status;
+    @ColumnDefault("0")
+    private int status;
 
 }

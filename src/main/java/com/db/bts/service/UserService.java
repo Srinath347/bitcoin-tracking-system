@@ -20,4 +20,6 @@ public interface UserService {
     public void updateMembershipStatus(List<Integer> userIds, String status) throws Exception;
 
     public User updateMembershipStatusById(Integer userId, MembershipNameModel status) throws Exception;
+
+    public Integer findTraderByUserId(Integer userId) throws Exception;
 }

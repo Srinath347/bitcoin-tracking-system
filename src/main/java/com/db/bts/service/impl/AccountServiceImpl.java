@@ -1,8 +1,11 @@
 package com.db.bts.service.impl;
 
 import com.db.bts.entity.Account;
+import com.db.bts.entity.Payment;
 import com.db.bts.repository.AccountRepository;
 import com.db.bts.service.AccountService;
+import com.db.bts.service.PaymentService;
+import com.db.bts.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @Override
     public Account findAccountById(int accountId) throws Exception {
@@ -99,8 +108,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account addAmountToUserAccount(int userId, float amount) throws Exception {
         Account existingAccount = accountRepository.findAccountByUserId(userId);
-        float updatedBalance = existingAccount.getBalance() + amount;
-        existingAccount.setBalance(updatedBalance);
-        return accountRepository.save(existingAccount);
+        Payment payment = new Payment();
+        payment.setAmount(amount);
+        payment.setUserId(userId);
+        Integer traderId = userService.findTraderByUserId(userId);
+        logger.info("traderId: {}", traderId);
+        payment.setTrader_id(userService.findTraderByUserId(userId));
+        Payment payment1 = paymentService.save(payment);
+//        float updatedBalance = existingAccount.getBalance() + amount;
+//        existingAccount.setBalance(updatedBalance);
+//        return accountRepository.save(existingAccount);
+        return existingAccount;
     }
 }
