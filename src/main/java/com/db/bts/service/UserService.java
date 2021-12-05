@@ -1,5 +1,6 @@
 package com.db.bts.service;
 
+import com.db.bts.entity.Admin;
 import com.db.bts.entity.User;
 import com.db.bts.model.MembershipNameModel;
 
@@ -21,5 +22,5 @@ public interface UserService {
 
     public User updateMembershipStatusById(Integer userId, MembershipNameModel status) throws Exception;
 
-    public Integer findTraderByUserId(Integer userId) throws Exception;
+    public Admin findTraderByUserId(Integer userId) throws Exception;
 }

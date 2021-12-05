@@ -1,5 +1,6 @@
 package com.db.bts.service.impl;
 
+import com.db.bts.entity.Admin;
 import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
 import com.db.bts.model.MembershipNameModel;
@@ -104,7 +105,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer findTraderByUserId(Integer userId) throws Exception {
+    public Admin findTraderByUserId(Integer userId) throws Exception {
         return Optional.ofNullable(userRepository.findTraderByUserId(userId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not find trader details"));
     }

@@ -1,5 +1,6 @@
 package com.db.bts.repository;
 
+import com.db.bts.entity.Admin;
 import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update User u set u.member.id = :memId where u.id = :id")
     void updateMembershipStatusById(@Param("id") Integer userId, @Param("memId") Integer memId);
 
-    @Query("select u.trader.id from User u where u.id = :id")
-    Integer findTraderByUserId(@Param("id") Integer userId);
+    @Query("select u.trader from User u where u.id = :id")
+    Admin findTraderByUserId(@Param("id") Integer userId);
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends CrudRepository<Payment, Integer>{
 
-    @Query("from Payment p where p.trader_id = :id and p.status = 0")
+    @Query("from Payment p where p.trader.id = :id and p.status = 0")
     List<Payment> findPaymentsByTraderId(@Param("id") int traderId);
 
     @Transactional

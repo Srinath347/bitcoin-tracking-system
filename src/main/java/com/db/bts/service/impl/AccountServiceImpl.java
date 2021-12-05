@@ -110,10 +110,10 @@ public class AccountServiceImpl implements AccountService {
         Account existingAccount = accountRepository.findAccountByUserId(userId);
         Payment payment = new Payment();
         payment.setAmount(amount);
-        payment.setUserId(userId);
-        Integer traderId = userService.findTraderByUserId(userId);
-        logger.info("traderId: {}", traderId);
-        payment.setTrader_id(userService.findTraderByUserId(userId));
+        payment.setUser(userService.findUserById(userId));
+//        Integer traderId = userService.findTraderByUserId(userId);
+//        logger.info("traderId: {}", traderId);
+        payment.setTrader(userService.findTraderByUserId(userId));
         Payment payment1 = paymentService.save(payment);
 //        float updatedBalance = existingAccount.getBalance() + amount;
 //        existingAccount.setBalance(updatedBalance);
