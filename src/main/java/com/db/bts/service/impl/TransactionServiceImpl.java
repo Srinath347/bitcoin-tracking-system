@@ -43,6 +43,9 @@ public class TransactionServiceImpl implements TransactionService{
     private UserService userService;
 
     @Autowired
+    private AdminServiceImpl adminService;
+
+    @Autowired
     AccountService accountService;
 
     @Autowired
@@ -129,12 +132,15 @@ public class TransactionServiceImpl implements TransactionService{
         transaction.setCommissionValue(commissionValue);
         transaction.setBitcoin(transactionBitcoins);
         transaction.setCommissionType(commissionType);
-        // TODO : role Id
-        logger.info("Transaction details {}", transaction);
+        if (transactionDTO.getTraderId() != null) {
+            transaction.setTrader(adminService.findAdminById(transactionDTO.getTraderId()));
+        }
+        // TODO : what does role Id do? who's role Id it is?
 
         account.setBitcoin(existingBitcoins);
         account.setBalance(existingBalance);
-        accountService.updateAccount(account.getId(), account);
+        account = accountService.updateAccount(account.getId(), account);
+        logger.info("Account details updated{}", account);
         return Optional.ofNullable(transactionRepository.save(transaction))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not create transaction"));
     }
