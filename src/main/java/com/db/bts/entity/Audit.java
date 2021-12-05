@@ -1,6 +1,7 @@
 package com.db.bts.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,9 +16,8 @@ public class Audit {
     private int id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "time",
-            updatable = false,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    @Column(name = "time")
     private Date timestamp;
 
     @ManyToOne

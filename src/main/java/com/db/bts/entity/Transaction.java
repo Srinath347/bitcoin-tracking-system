@@ -2,10 +2,12 @@ package com.db.bts.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @DynamicInsert
@@ -18,7 +20,8 @@ public class Transaction {
     private int id;
 
     @Column
-    private Timestamp time;
+    @CreationTimestamp
+    private Date time;
 
     @Column(nullable = false)
     private float amount;

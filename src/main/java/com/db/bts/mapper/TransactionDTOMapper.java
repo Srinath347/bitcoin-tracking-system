@@ -30,8 +30,7 @@ public class TransactionDTOMapper {
         transaction.setAmount(transactionDTO.getAmount());
         transaction.setCommissionType(transactionDTO.getCommissionType());
         transaction.setCommissionValue(transactionDTO.getCommissionValue());
-        Timestamp timestamp = new Timestamp(new Date().getTime());
-        transaction.setTime(timestamp);
+        transaction.setTime(transactionDTO.getTime());
         transaction.setStatus(transactionDTO.getStatus());
         transaction.setType(transactionDTO.getType());
         User user = Optional.ofNullable(userService.findUserById(transactionDTO.getUserId()))
@@ -39,6 +38,7 @@ public class TransactionDTOMapper {
         transaction.setUser(user);
         Admin admin = adminService.findAdminById(transactionDTO.getTraderId());
         transaction.setTrader(admin);
+        transaction.setBitcoin(transactionDTO.getBitcoin() == null? 0f : transaction.getBitcoin());
         return transaction;
     }
 }

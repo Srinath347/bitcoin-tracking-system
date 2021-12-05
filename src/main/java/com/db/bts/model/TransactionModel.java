@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class TransactionModel {
 
     private int id;
-//    private Timestamp time;
+    private Date time;
     private float amount;
     private float commissionValue;
     private String commissionType;
@@ -22,5 +25,5 @@ public class TransactionModel {
     private int traderId;
     private String type;
     private int status;
-
+    private Float bitcoin;
 }
