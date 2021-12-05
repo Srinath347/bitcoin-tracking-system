@@ -4,6 +4,7 @@ import com.db.bts.entity.Admin;
 import com.db.bts.entity.Audit;
 import com.db.bts.entity.User;
 import com.db.bts.model.TransactionCancelModel;
+import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.service.impl.AdminServiceImpl;
 import com.db.bts.service.impl.AuditServiceImpl;
 import com.db.bts.service.impl.UserServiceImpl;
@@ -90,8 +91,12 @@ public class BtsApiController {
     }
 
     @PostMapping("/cancel")
-    public void cancelTransaction(@RequestBody @NonNull TransactionCancelModel transactionCancelModel) throws Exception {
+    public void cancelTransaction(@RequestBody @NonNull TransactionSearchModel transactionSearchModel) throws Exception {
         logger.info("cancellation request");
+        TransactionCancelModel transactionCancelModel = new TransactionCancelModel();
+        transactionCancelModel.setUserId(transactionSearchModel.getUser().getId());
+        transactionCancelModel.setTraderId(transactionSearchModel.getTrader().getId());
+        transactionCancelModel.setTransactionId(transactionSearchModel.getId());
         Audit audit = auditService.cancelTransaction(transactionCancelModel);
         logger.info("audit {}", audit);
     }

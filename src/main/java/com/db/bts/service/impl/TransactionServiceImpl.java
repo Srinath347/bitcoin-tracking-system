@@ -211,6 +211,7 @@ public class TransactionServiceImpl implements TransactionService{
             for ( Transaction transaction : transactions) {
                 logger.info("Transactions {}", transaction.getId());
                 TransactionSearchModel transactionSearchModel = new TransactionSearchModel();
+                transactionSearchModel.setId(transaction.getId());
                 transactionSearchModel.setTime(transaction.getTime());
                 transactionSearchModel.setAmount(transaction.getAmount());
                 transactionSearchModel.setCommissionType(transaction.getCommissionType());

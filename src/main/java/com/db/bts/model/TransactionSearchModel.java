@@ -16,6 +16,7 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TransactionSearchModel {
 
+    private int id;
     private Date time;
     private double amount;
     private double commissionValue;
@@ -24,17 +25,16 @@ public class TransactionSearchModel {
     private String type;
     private Admin trader;
     private float bitcoin;
-   
 
-    public TransactionSearchModel(Date time, double amount, double commissionValue, String commissionType, User user, String type, Admin trader, float bitcoin) {
+    public TransactionSearchModel(int id, Date time, double amount, double commissionValue, String commissionType, User user, String type, Admin trader, float bitcoin) {
+        this.id = id;
         this.time = time;
         this.amount = amount;
         this.commissionValue = commissionValue;
         this.commissionType = commissionType;
         this.user = user;
         this.type = type;
-        this.trader=trader;
-        this.bitcoin=bitcoin;
+        this.trader = trader;
+        this.bitcoin = bitcoin;
     }
-
 }
