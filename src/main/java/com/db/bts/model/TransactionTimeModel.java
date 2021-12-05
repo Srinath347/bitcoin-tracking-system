@@ -19,11 +19,14 @@ public class TransactionTimeModel {
 //    private float totalAmountBuy;
 //    private float totalAmountSell;
 //    private float totalCommission;
-    private List<TransactionStatistics> transactionStatistics;
+//    private List<TransactionStatistics> transactionStatistics;
+    private TransactionStatistics buy;
+    private TransactionStatistics sell;
     private List<Transaction> transactionList;
 
-    public TransactionTimeModel(List<TransactionStatistics> transactionStatistics, List<Transaction> transactionList) {
-        this.transactionStatistics = transactionStatistics;
+    public TransactionTimeModel(TransactionStatistics buy, TransactionStatistics sell, List<Transaction> transactionList) {
+        this.buy = buy;
+        this.sell = sell;
         this.transactionList = transactionList;
     }
 }
