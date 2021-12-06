@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS bts;
-create database bts;
-use bts;
+DROP DATABASE IF EXISTS bts1;
+create database bts1;
+use bts1;
 
 
 DROP TABLE IF EXISTS address;
