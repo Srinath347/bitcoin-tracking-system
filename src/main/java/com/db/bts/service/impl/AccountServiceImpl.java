@@ -122,4 +122,13 @@ public class AccountServiceImpl implements AccountService {
 //        return accountRepository.save(existingAccount);
         return existingAccount;
     }
+
+    @Override
+    public Account addAmountByUserId(int userId, float amount) throws Exception {
+        Account existingAccount = accountRepository.findAccountByUserId(userId);
+        logger.info("existing account {}", existingAccount);
+        float updatedBalance = existingAccount.getBalance() + amount;
+        existingAccount.setBalance(updatedBalance);
+        return accountRepository.save(existingAccount);
+    }
 }

@@ -1,9 +1,10 @@
 package com.db.bts.service.impl;
 
+import com.db.bts.entity.Account;
 import com.db.bts.entity.Payment;
 import com.db.bts.enums.PaymentStatus;
-import com.db.bts.model.PaymentStatusModel;
 import com.db.bts.repository.PaymentRepository;
+import com.db.bts.service.AccountService;
 import com.db.bts.service.PaymentService;
 import com.db.bts.service.UserService;
 import org.slf4j.Logger;
@@ -27,6 +28,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Override
     public Payment findPaymentById(int paymentId) throws Exception {
@@ -77,7 +81,12 @@ public class PaymentServiceImpl implements PaymentService {
         } else {
             payment.setStatus(PaymentStatus.REJECTED.getValue());
         }
-        return Optional.ofNullable(paymentRepository.save(payment))
+        Payment payment1 =  Optional.ofNullable(paymentRepository.save(payment))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to update payment requests"));
+
+        Account account = Optional.ofNullable(accountService.addAmountByUserId(payment.getUser().getId(), payment.getAmount()))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to add money to account"));
+        logger.info("Account details: {}", account);
+        return payment1;
     }
 }
