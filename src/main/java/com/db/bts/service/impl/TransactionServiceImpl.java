@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -245,6 +247,9 @@ public class TransactionServiceImpl implements TransactionService{
         }
 //        transactionTimeModel.setTransactionStatistics(transactionStatistics);
         transactionTimeModel.setTransactionList(transactions);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        transactionTimeModel.setFrom(dateFormat.format(from));
+        transactionTimeModel.setTo(dateFormat.format(to));
         return transactionTimeModel;
 
     }

@@ -31,11 +31,14 @@ import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.TransactionTimeModel;
 import com.db.bts.service.impl.AuditServiceImpl;
 import com.db.bts.service.impl.TransactionServiceImpl;
-
-
 import lombok.NonNull;
-
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -116,7 +119,11 @@ public class TransactionsController {
 //    }
 
     @GetMapping("/time")
-    public ModelAndView findTransactionsStatisticsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) throws Exception {
+    public ModelAndView findTransactionsStatisticsByDate(@RequestParam("from") String fromDate, @RequestParam("to") String toDate) throws Exception {
+        System.out.println("From: "+ fromDate + "\nTo: " + toDate);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date from = dateFormat.parse(dateFormat.format(new Date(fromDate)));
+        Date to = dateFormat.parse(dateFormat.format(new Date(toDate)));
         TransactionTimeModel transactions = transactionService.findTransactionsStatisticsByDate(from, to);
         System.out.println("Transactions -->" + transactions);
         return new ModelAndView("manager","transactionStatistics", transactions);
