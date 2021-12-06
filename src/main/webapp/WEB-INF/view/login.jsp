@@ -78,8 +78,7 @@ session1.invalidate();
 	                <form:input type="password" id="pwd" class="form-control form-control-lg" path="password" />
 	                <label class="form-label" for="pwd">Password</label>
 	              </div>
-	
-	              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+
 					<input type="hidden" id="loggedIn" value="1">
 	              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>           
 	
