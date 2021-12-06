@@ -208,7 +208,7 @@ public class TransactionServiceImpl implements TransactionService{
             transactions =  findTransactionsByUserIds(userIds);
         }
         if(transactions.size() > 0) {
-            for ( Transaction transaction : transactions) {
+            for (Transaction transaction : transactions) {
                 logger.info("Transactions {}", transaction.getId());
                 TransactionSearchModel transactionSearchModel = new TransactionSearchModel();
                 transactionSearchModel.setId(transaction.getId());
@@ -222,9 +222,8 @@ public class TransactionServiceImpl implements TransactionService{
                 transactionSearchModel.setType(transaction.getType());
                 transactionSearchModels.add(transactionSearchModel);
             }
-        return transactionSearchModels;
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "no transactions found for " + field + ": " + value);
+        return transactionSearchModels;
     }
 
     @Override
