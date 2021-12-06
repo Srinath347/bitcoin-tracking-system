@@ -10,12 +10,11 @@ import java.util.Date;
 @Entity
 @Table(name = "payments")
 @Data
-
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int pid;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

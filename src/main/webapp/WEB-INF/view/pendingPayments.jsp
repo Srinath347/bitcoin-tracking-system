@@ -62,8 +62,8 @@ $(document).ready(function() {
 						      <td>${i.user.firstName}<%out.println(" ");%>${i.user.lastName}</td>
 						      <td>${i.amount}</td>
 						      <td>${i.time}</td>
-						      <td><a href="http://localhost:9000/bts/payment/status?paymentId=${i.pid}&traderId=${i.trader.id}&status=accepted"><button id="accept" class="btn btn-dark">Accept</button></a>
-						      &nbsp<a href="http://localhost:9000/bts/payment/status?paymentId=${i.pid}&traderId=${i.trader.id}&status=rejected"><button id="reject" class="btn btn-dark">Reject</button></a></td>
+						      <td><a href="http://localhost:9000/bts/payment/status?paymentId=${i.id}&traderId=${i.trader.id}&status=accepted"><button id="accept" class="btn btn-dark">Accept</button></a>
+						      &nbsp<a href="http://localhost:9000/bts/payment/status?paymentId=${i.id}&traderId=${i.trader.id}&status=rejected"><button id="reject" class="btn btn-dark">Reject</button></a></td>
 						  
 						    </tr>
 						  </c:forEach>

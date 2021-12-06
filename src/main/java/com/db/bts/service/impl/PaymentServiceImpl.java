@@ -53,11 +53,10 @@ public class PaymentServiceImpl implements PaymentService {
                 payment1.setTrader(payment.getTrader());
                 payment1.setAmount(payment.getAmount());
                 payment1.setStatus(payment.getStatus());
-                payment1.setPid(payment.getPid());
+                payment1.setId(payment.getId());
                 payment1.setTime(payment.getTime());
                 paymentList.add(payment1);
 //                PaymentModel paymentModel = new PaymentModel();
-//                paymentModel.setPid(payment.getPid());
 //                paymentModel.setAmount(payment.getAmount());
 //                paymentModel.setStatus(payment.getStatus());
 //                paymentModel.setTraderId(payment.getTrader().getId());
