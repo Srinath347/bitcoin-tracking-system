@@ -32,8 +32,7 @@ public class BtsApiController {
     @Autowired
     private AdminServiceImpl adminService;
 
-    @Autowired
-    private AuditServiceImpl auditService;
+   
     
     @GetMapping("/logout")
    	public ModelAndView logout(Model model,HttpServletRequest req) {
@@ -99,15 +98,5 @@ public class BtsApiController {
         return new ModelAndView("manager");
     }
 
-    @PostMapping("/cancel")
-    public void cancelTransaction(@RequestBody @NonNull TransactionSearchModel transactionSearchModel) throws Exception {
-        logger.info("cancellation request");
-        TransactionCancelModel transactionCancelModel = new TransactionCancelModel();
-        transactionCancelModel.setUserId(transactionSearchModel.getUser().getId());
-        transactionCancelModel.setTraderId(transactionSearchModel.getTrader().getId());
-        transactionCancelModel.setTransactionId(transactionSearchModel.getId());
-        Audit audit = auditService.cancelTransaction(transactionCancelModel);
-        logger.info("audit {}", audit);
-    }
-
+    
 }
