@@ -31,12 +31,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     // TODO userId
-    public Account findAccountById(int accountId) throws Exception {
-        Account account = accountRepository.findAccountByUserId(accountId);
+    public Account findAccountById(int userId) throws Exception {
+        Account account = accountRepository.findAccountByUserId(userId);
         if (account != null) {
             return account;
         } else {
-            logger.error("Account not found for id: {}", accountId);
+            logger.error("Account not found for user id: {}", userId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested user account not found");
         }
         //return accountRepository.findById(accountId).orElseThrow(Exception::new);
