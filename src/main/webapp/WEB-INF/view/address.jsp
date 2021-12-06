@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/custom.css">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta name="description" content="">
@@ -24,14 +24,14 @@
 	<section class="login-background">
 	  <form:form action="/bts/address" method="POST" modelAttribute="address">
 	  <div class="container py-5 h-100">
-	  	<form:input type="hidden" id="user" path="user"/>
+	  	<form:input type="hidden" id="user" path="userId"/>
 	    <div class="row d-flex justify-content-center align-items-center h-100">
 	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
 	        <div class="card bg-dark text-white" style="border-radius: 1rem;">
 	          <div class="card-body p-5 text-center">
 	
 	            <div class="mb-md-5 mt-md-4 pb-5">
-	
+					
 	              <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
 	              <h5 class="fw-bold mb-2 text-uppercase">Step 2 of 2</h5>
 	              <p class="text-white-50 mb-5">Enter address details</p>

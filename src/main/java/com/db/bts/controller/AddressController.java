@@ -23,7 +23,7 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ModelAndView save(@RequestBody AddressModel addressModel) throws Exception{
+    public ModelAndView save(@ModelAttribute AddressModel addressModel) throws Exception{
         Address address1=addressService.save(addressModel);
         return new ModelAndView("login","user", new User());
     }

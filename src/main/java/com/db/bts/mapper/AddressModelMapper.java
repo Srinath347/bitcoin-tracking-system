@@ -19,7 +19,7 @@ public class AddressModelMapper {
         address.setState(addressModel.getState());
         address.setStreet(addressModel.getStreet());
         address.setZipcode(addressModel.getZipcode());
-        User user = userService.findUserById(addressModel.getUserId());
+        User user = userService.findUserById(addressModel.getUserId().getId());
         address.setUser(user);
         return address;
     }
