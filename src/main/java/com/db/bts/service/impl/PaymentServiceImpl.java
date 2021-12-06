@@ -84,9 +84,11 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment1 =  Optional.ofNullable(paymentRepository.save(payment))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to update payment requests"));
 
-        Account account = Optional.ofNullable(accountService.addAmountByUserId(payment.getUser().getId(), payment.getAmount()))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to add money to account"));
-        logger.info("Account details: {}", account);
+        if(status.equalsIgnoreCase("accepted")){
+            Account account = Optional.ofNullable(accountService.addAmountByUserId(payment.getUser().getId(), payment.getAmount()))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "failed to add money to account"));
+            logger.info("Account details: {}", account);
+        }
         return payment1;
     }
 }
