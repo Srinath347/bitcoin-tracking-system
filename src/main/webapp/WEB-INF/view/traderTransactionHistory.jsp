@@ -89,9 +89,24 @@ $(document).ready(function() {
 			      <td>${i.commissionType}</td>
 			      <td>${i.trader.firstName} ${i.trader.lastName}</td>
 			      <td>${i.bitcoin}</td>
-			      <td><a href="#"><button id="cancel" class="btn btn-dark">Cancel</button></a>
+			      <td><a href="/bts/transactions/cancel?userId=${i.user.id}&traderId=${i.trader.id}&transactionId=${i.id}"><button id="cancel" class="btn btn-dark" >Cancel</button></a></td>
 			      
+			      <!-- commented for the future work -->
+			      <%-- <% if(session.getAttribute("transactionIdToCancel")!=null){
+			      	int id = (int)session.getAttribute("transactionIdToCancel");
+			      	request.setAttribute("cancelledId", id);	
+			      }
+			      %>
 			      
+			      <c:choose>
+			      <c:when test="${i.id == cancelledId}">
+			      	<td><button id="cancel" class="btn btn-dark" disabled="disabled" >Cancel</button></td>
+			      </c:when>
+			      <c:otherwise>
+			      <td><a href="/bts/transactions/cancel?userId=${i.user.id}&traderId=${i.trader.id}&transactionId=${i.id}"><button id="cancel" class="btn btn-dark" >Cancel</button></a></td>
+			      </c:otherwise>
+			      </c:choose>
+			       --%>
 			    </tr>
 			  </c:forEach>
 			  </tbody>

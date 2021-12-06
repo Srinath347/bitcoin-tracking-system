@@ -1,9 +1,8 @@
 package com.db.bts.repository;
 
-import com.db.bts.entity.Transaction;
-import com.db.bts.entity.User;
-import com.db.bts.model.TransactionStatistics;
-import com.db.bts.model.UserTransactionAmountModel;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,8 +10,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import com.db.bts.entity.Transaction;
+import com.db.bts.entity.User;
+import com.db.bts.model.TransactionStatistics;
+import com.db.bts.model.UserTransactionAmountModel;
 
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
@@ -25,7 +26,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     @Query("from Transaction t where t.user = :user")
     List<Transaction> getTransactionByUser(@Param("user") User user);
 
-    @Query("from Transaction t where t.user IN (:user)")
+    @Query("from Transaction t where t.status!=2 and t.user IN (:user)")
     List<Transaction> getTransactionByUsers(@Param("user") List<User> users);
 
     @Query("select sum(t.amount) from Transaction t where t.user = :user")

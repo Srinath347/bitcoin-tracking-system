@@ -1,27 +1,57 @@
 package com.db.bts.controller;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.db.bts.controller.api.BtsApiController;
+import com.db.bts.entity.Admin;
+import com.db.bts.entity.Audit;
 import com.db.bts.entity.Transaction;
+import com.db.bts.model.TransactionCancelModel;
 import com.db.bts.entity.User;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.TransactionTimeModel;
+import com.db.bts.service.impl.AuditServiceImpl;
 import com.db.bts.service.impl.TransactionServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
+
+import lombok.NonNull;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/bts/transactions")
 public class TransactionsController {
 
+	Logger logger = LoggerFactory.getLogger(BtsApiController.class);
+	 
+	 
     @Autowired
     private TransactionServiceImpl transactionService;
+    
+    @Autowired
+    private AuditServiceImpl auditService;
     
     @GetMapping("")
     public ModelAndView buyOrSell(HttpSession session) throws Exception {
@@ -65,17 +95,7 @@ public class TransactionsController {
         List<Transaction> transactionList = transactionService.getTransactionByTraderId(transaction.getTrader().getId());
         return new ModelAndView("traderTransactionHistory", "transactionList", transactionList);
     }
-//        return new ModelAndView();
 
-	/*
-	 * @PostMapping("") public ResponseEntity<Transaction>
-	 * addTransaction(@RequestBody @NonNull TransactionModel transactionDTO) throws
-	 * Exception { Transaction transaction1 =
-	 * transactionService.addTransaction(transactionDTO); return
-	 * ResponseEntity.ok().body(transaction1);
-	 * 
-	 * }
-	 */
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateStatus(@PathVariable(value = "id") int transactionId) throws Exception {
@@ -101,5 +121,27 @@ public class TransactionsController {
         System.out.println("Transactions -->" + transactions);
         return new ModelAndView("manager","transactionStatistics", transactions);
     }
+    
+    @GetMapping("/transactionHistoryOnCancel")
+    public ModelAndView redirectToTransactionHistory(HttpSession session, int transactionId) throws Exception {
+    	Admin trader = (Admin)session.getAttribute("admin");
+    	List<Transaction> transactionList = transactionService.getTransactionByTraderId(trader.getId());
+    	session.setAttribute("transactionIdToCancel", transactionId);
+    	return new ModelAndView("traderTransactionHistory", "transactionList", transactionList);
+    	
+    }
+    
+    @GetMapping("/cancel")
+    public ModelAndView cancelTransaction(@RequestParam("userId") int userId, @RequestParam("traderId") int traderId, @RequestParam("transactionId") int transactionId, HttpSession session) throws Exception {
+        logger.info("cancellation request");
+        TransactionCancelModel transactionCancelModel = new TransactionCancelModel();
+        transactionCancelModel.setUserId(userId);
+        transactionCancelModel.setTraderId(traderId);
+        transactionCancelModel.setTransactionId(transactionId);
+        Audit audit = auditService.cancelTransaction(transactionCancelModel);
+        logger.info("audit {}", audit);
+        return redirectToTransactionHistory(session, transactionId);
+    }
+
 
 }
