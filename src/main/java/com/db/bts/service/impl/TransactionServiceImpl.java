@@ -162,7 +162,7 @@ public class TransactionServiceImpl implements TransactionService{
 
         account.setBitcoin(existingBitcoins);
         account.setBalance(existingBalance);
-        account = accountService.updateAccount(account.getId(), account);
+        account = accountService.updateAccount(account.getUser().getId(), account);
         logger.info("Account details updated{}", account);
         return Optional.ofNullable(transactionRepository.save(transaction))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not create transaction"));
