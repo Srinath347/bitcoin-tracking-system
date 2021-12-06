@@ -61,10 +61,6 @@
 	                    <h6>Cell Number</h6>
 	                    <p class="text-muted">${user.cellNumber}</p>
 	                  </div>
-	                  <div class="col-6 mb-3">
-	                    <h6>Password</h6>
-	                    <p class="text-muted"><a href="#">CHANGE</a></p>
-	                  </div>
 	                </div>
 	                <h6>Address</h6>
 	                <hr class="mt-0 mb-4">

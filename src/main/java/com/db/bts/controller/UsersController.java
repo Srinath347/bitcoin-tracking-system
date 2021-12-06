@@ -24,6 +24,7 @@ import com.db.bts.entity.Address;
 import com.db.bts.entity.Admin;
 import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
+import com.db.bts.model.AddressModel;
 import com.db.bts.model.MembershipNameModel;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.service.AddressService;
@@ -74,8 +75,8 @@ public class UsersController {
         user.setMember(membership);
         User savedUser = userService.addUser(user);
         logger.info("User with id: [{}] signed up successfully", savedUser.getId());
-        Address address=new Address();
-        address.setUser(savedUser);
+        AddressModel address=new AddressModel();
+        address.setUserId(savedUser);
         return new ModelAndView("address","address", address);
     }
 

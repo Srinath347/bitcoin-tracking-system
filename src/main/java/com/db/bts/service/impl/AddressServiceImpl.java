@@ -46,7 +46,7 @@ public class AddressServiceImpl implements AddressService {
         if(addressModel.getZipcode() <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zipcode cannot be empty");
         }
-        if(addressModel.getUserId() <= 0) {
+        if(addressModel.getUserId().getId() <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "UserId cannot be empty");
         }
         Address address = addressModelMapper.mapAddressModelToAddress(addressModel);
