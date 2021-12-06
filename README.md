@@ -1,5 +1,23 @@
 # bitcoin-tracking-system
 
+## Team members
+**Name : Dhyani Gandhi** <br/>
+**Net ID: dpg190001** <br/><br/>
+
+**Name : Dhwani Dixit Kumar Shah** <br/>
+**Net ID: dxs190014** <br/><br/>
+
+
+**Name : Sanjana Thomas** <br/>
+**Net ID: sxt210026** <br/><br/>
+
+**Name : Srinath Reddy Mavillapally** <br/>
+**Net ID: sxm210047** <br/><br/>
+
+**Name : Tanaya Panditrao** <br/>
+**Net ID: tmp200005** <br/><br/>
+
+
 ## Required Dependencies
 * maven [download link](https://maven.apache.org/install.html)
 * java (preferably JDK 11) [download link](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
