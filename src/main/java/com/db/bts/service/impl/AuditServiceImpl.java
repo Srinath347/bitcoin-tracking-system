@@ -83,7 +83,7 @@ public class AuditServiceImpl implements AuditService {
         account.setBalance(balance);
         account.setBitcoin(userBitcoin);
         logger.info("existing balance {}", account);
-        Account account1 = accountService.updateAccount(account.getId(), account);
+        Account account1 = accountService.updateAccount(account.getUser().getId(), account);
         logger.info("updated account  {}", account1);
         return  account1;
     }
