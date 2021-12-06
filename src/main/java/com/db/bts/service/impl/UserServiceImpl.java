@@ -1,5 +1,6 @@
 package com.db.bts.service.impl;
 
+import com.db.bts.entity.Account;
 import com.db.bts.entity.Admin;
 import com.db.bts.entity.Membership;
 import com.db.bts.entity.User;
@@ -28,6 +29,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MembershipService membershipService;
 
+    @Autowired
+    private AdminServiceImpl adminService;
+
+    @Autowired
+    private AccountServiceImpl accountService;
+
     @Override
     public User findUserById(final int userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
@@ -42,7 +49,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) throws Exception {
         try {
-            return userRepository.save(user);
+            if (user.getTrader() == null) {
+                user.setTrader(adminService.findAdminById(1));
+            }
+            user = userRepository.save(user);
+            Account account = new Account();
+            account.setUser(user);
+            account.setBalance(100f);
+            account.setBitcoin(0f);
+            accountService.addAccount(account);
+            return user;
         } catch (Exception e) {
             logger.error("user sign up failed with error message: {}", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "could not save user");
