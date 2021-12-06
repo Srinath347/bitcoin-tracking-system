@@ -54,10 +54,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account updateAccount(int accountId, Account account) throws Exception {
+    public Account updateAccount(int userId, Account account) throws Exception {
 
         try {
-            Account existingAccount = findAccountById(accountId);
+            Account existingAccount = findAccountByUserId(userId);
             account = validateAndUpdateAccountAttributes(existingAccount, account);
             return accountRepository.save(account);
         } catch (Exception e) {

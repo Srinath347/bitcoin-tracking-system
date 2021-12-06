@@ -66,10 +66,11 @@ body {
 	          <h1 class="mb-3">Welcome</h1>
 	          <% if(user!=null){ %>
 	          <h4 class="mb-3"><%=user.getFirstName() %>&nbsp;<%=user.getLastName() %></h4>
+	          <a class="btn btn-outline-dark btn-lg" style="width:200px" href="/bts/transactions" role="button">BUY/SELL</a><br><br>
 	          <%} if(admin!=null){ %>
 	          <h4 class="mb-3"><%=admin.getFirstName() %>&nbsp;<%=admin.getLastName() %></h4>
+	          <a class="btn btn-outline-dark btn-lg" style="width:200px" href="/bts/users/trader/<%=admin.getId()%>" role="button">BUY/SELL</a><br><br>
 	          <%} %>
-	          <a class="btn btn-outline-dark btn-lg" style="width:200px" href="/bts/transactions" role="button">BUY/SELL</a><br><br>
 	        
 	          
 	        </div>

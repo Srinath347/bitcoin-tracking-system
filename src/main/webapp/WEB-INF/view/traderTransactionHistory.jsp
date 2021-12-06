@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/custom.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<%@ page import="com.db.bts.entity.Admin"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -25,7 +26,12 @@ $(document).ready(function() {
 } );
 </script>
 <body>
-
+	<%
+	HttpSession session1= request.getSession(false);
+	Admin admin=null;
+    if(session1!=null){
+    	admin= (Admin) session1.getAttribute("admin");
+    }%>
 	<jsp:include page="header.jsp"></jsp:include>    
     
 	<div style="margin-top: 20px; margin-left: 20px; margin-right: 20px; margin-bottom: 20px">
@@ -89,7 +95,7 @@ $(document).ready(function() {
 			      <td>${i.commissionType}</td>
 			      <td>${i.trader.firstName} ${i.trader.lastName}</td>
 			      <td>${i.bitcoin}</td>
-			      <td><a href="/bts/transactions/cancel?userId=${i.user.id}&traderId=${i.trader.id}&transactionId=${i.id}"><button id="cancel" class="btn btn-dark" >Cancel</button></a></td>
+			      <td><a href="/bts/transactions/cancel?userId=${i.user.id}&traderId=<%=admin.getId()%>&transactionId=${i.id}"><button id="cancel" class="btn btn-dark" >Cancel</button></a></td>
 			      
 			      <!-- commented for the future work -->
 			      <%-- <% if(session.getAttribute("transactionIdToCancel")!=null){
