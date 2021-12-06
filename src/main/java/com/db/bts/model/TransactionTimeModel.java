@@ -23,10 +23,14 @@ public class TransactionTimeModel {
     private TransactionStatistics buy;
     private TransactionStatistics sell;
     private List<Transaction> transactionList;
+    private String from;
+    private String to;
 
-    public TransactionTimeModel(TransactionStatistics buy, TransactionStatistics sell, List<Transaction> transactionList) {
+    public TransactionTimeModel(TransactionStatistics buy, TransactionStatistics sell, List<Transaction> transactionList, String from, String to) {
         this.buy = buy;
         this.sell = sell;
         this.transactionList = transactionList;
+        this.from = from;
+        this.to = to;
     }
 }

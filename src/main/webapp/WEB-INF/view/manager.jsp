@@ -22,6 +22,7 @@
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
     $('#example').DataTable( {
             "paging":   true,
@@ -30,6 +31,7 @@ $(document).ready(function() {
         } );
 
     $( "#datepickerFrom" ).datepicker({
+        format: 'yyyy-mm-dd',
         showOn: "button",
         buttonImage: "<%=request.getContextPath() %>/image/icons8-calendar-48.png",
         buttonImageOnly: true,
@@ -68,7 +70,25 @@ body {
 }
 
 .sub-container {
-    margin-top: 3rem;
+    margin-top: 4rem;
+}
+
+.sell {
+    margin-left: 10rem !important;
+}
+.dataTables_filter {
+    justify-content: flex-end;
+    display: flex;
+}
+.pagination {
+    justify-content: end;
+}
+
+.date-text {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    color: #8b8b8b;
 }
 </style>
 
@@ -89,46 +109,72 @@ body {
             </div>
        </div>
        <div class="submit-button ml-3">
-            <a href='' onclick="this.href='http://localhost:9000/bts/transactions/time?from=2021-10-25T19:07:44.000+00:00&to=2021-11-26T05:42:10.000+00:00"><button class="btn btn-dark">Submit</button></a>
+            <a href='' onclick="this.href='http://localhost:9000/bts/transactions/time?from='+document.getElementById('datepickerFrom').value+'&to='+document.getElementById('datepickerTo').value"><button class="btn btn-dark">Submit</button></a>
        </div>
     </div>
         <div class="sub-container">
             <div>
                 <div class="row">
-                    <div class="col">
-                        <h4>BUY TRANSACTIONS</h4>
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <h4>BUY TRANSACTIONS</h4>
+                            <span class="date-text">
+                                <c:out value="${empty transactionStatistics.from ? '' : transactionStatistics.from}" />
+                                <c:out value="${empty transactionStatistics.from ? '' : '-'}" />
+                                <c:out value="${empty transactionStatistics.to ? '' : transactionStatistics.to}" />
+                            </span>
+                        </div>
                         <table class="table t-width">
                             <tbody class="font-weight-normal">
                                 <tr>
                                     <td><span>Total transactions:</span></td>
-                                    <td><span>8</span></td>
+                                    <td><span>
+                                         <c:out value="${empty transactionStatistics.buy ? '-' : transactionStatistics.buy.count}" />
+                                    </span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Total amount:</span></td>
-                                    <td><span>8000</span></td>
+                                    <td><span>
+                                        <c:out value="${empty transactionStatistics.buy ? '-' : transactionStatistics.buy.amount}" />
+                                    </span></td>
                                 </tr>
                                 <tr>
                                    <td><span>Total commission:</span></td>
-                                   <td><span>920</span></td>
+                                   <td><span>
+                                        <c:out value="${empty transactionStatistics.buy ? '-' : transactionStatistics.buy.commission}" />
+                                   </span></td>
                                 </tr>
                             </tbody>
                        </table>
                     </div>
-                    <div class="col mb-3">
+                    <div class="col-md-4 mb-4 sell">
+                    <div class="d-flex">
                         <h4>SELL TRANSACTIONS</h4>
+                            <span class="date-text">
+                                <c:out value="${empty transactionStatistics.from ? '' : transactionStatistics.from}" />
+                                <c:out value="${empty transactionStatistics.from ? '' : '-'}" />
+                                <c:out value="${empty transactionStatistics.to ? '' : transactionStatistics.to}" />
+                            </span>
+                        </div>
                         <table class="table t-width">
                             <tbody class="font-weight-normal">
                                 <tr>
                                     <td><span>Total transactions:</span></td>
-                                    <td><span>9</span></td>
+                                    <td><span>
+                                        <c:out value="${empty transactionStatistics.sell ? '-' : transactionStatistics.sell.count}" />
+                                    </span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Total amount:</span></td>
-                                    <td><span>8100</span></td>
+                                    <td><span>
+                                        <c:out value="${empty transactionStatistics.sell ? '-' : transactionStatistics.sell.amount}" />
+                                    </span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Total commission:</span></td>
-                                    <td><span>400</span></td>
+                                    <td><span>
+                                        <c:out value="${empty transactionStatistics.sell ? '-' : transactionStatistics.sell.commission}" />
+                                    </span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -157,8 +203,8 @@ body {
     			      </th>
     			      <th class="th-sm">Commission Type
     			      </th>
-    			      <th class="th-sm">Issuer name
-    			      </th>
+    			      <!-- <th class="th-sm">Issuer name
+    			      </th> -->
     			      <th class="th-sm">Bitcoin
     			      </th>
 
@@ -173,21 +219,21 @@ body {
     			      <td>${i.type}</td>
     			      <td>${i.commissionValue}</td>
     			      <td>${i.commissionType}</td>
-    			      <td>${i.issuerName}</td>
+
     			      <td>${i.bitcoin}</td>
 
     			    </tr>
     			  </c:forEach>
     			  </tbody>
     			  <tfoot>
-    		        <tr>
+    		        <!-- <tr>
             		    <th>No.</th>
             			<th>Transaction Date</th>
             			<th>Amount</th>
             			<th>Transaction type</th>
             			<th>Commission Value</th>
             			<th>Commission Type</th>
-            		</tr>
+            		</tr> -->
     			  </tfoot>
 
     		</table>
