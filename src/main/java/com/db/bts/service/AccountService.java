@@ -20,4 +20,6 @@ public interface AccountService {
 
     public Account addAmountToUserAccount(int userId, float amount) throws Exception;
 
+    public Account addAmountByUserId(int userId, float amount) throws Exception;
+
 }
