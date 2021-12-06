@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class PaymentModel {
 
-    private int pid;
+    private int id;
     private String userName;
     private float amount;
     private Date time;

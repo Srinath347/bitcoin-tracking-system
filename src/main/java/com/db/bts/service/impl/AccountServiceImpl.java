@@ -30,10 +30,11 @@ public class AccountServiceImpl implements AccountService {
     private PaymentService paymentService;
 
     @Override
+    // TODO userId
     public Account findAccountById(int accountId) throws Exception {
-        Optional<Account> account = accountRepository.findById(accountId);
-        if (account.isPresent()) {
-            return account.get();
+        Account account = accountRepository.findAccountByUserId(accountId);
+        if (account != null) {
+            return account;
         } else {
             logger.error("Account not found for id: {}", accountId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested user account not found");
@@ -108,6 +109,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account addAmountToUserAccount(int userId, float amount) throws Exception {
         Account existingAccount = accountRepository.findAccountByUserId(userId);
+        logger.info("existing account {}", existingAccount);
         Payment payment = new Payment();
         payment.setAmount(amount);
         payment.setUser(userService.findUserById(userId));

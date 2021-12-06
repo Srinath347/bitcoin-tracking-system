@@ -26,8 +26,8 @@ public class PaymentsController {
     @Autowired
     private PaymentServiceImpl paymentService;
 
-    @GetMapping("/payment/{pid}")
-    public ResponseEntity<Payment> getUserById(@PathVariable(value = "pid") int paymentId) throws Exception {
+    @GetMapping("/payment/{id}")
+    public ResponseEntity<Payment> getUserById(@PathVariable(value = "id") int paymentId) throws Exception {
         Payment payment = paymentService.findPaymentById(paymentId);
         return ResponseEntity.ok().body(payment);
     }

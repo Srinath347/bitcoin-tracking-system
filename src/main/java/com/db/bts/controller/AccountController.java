@@ -27,9 +27,9 @@ public class AccountController {
     private AccountServiceImpl accountService;
 
     @GetMapping("/account/{id}")
-    public ModelAndView getAccountById(@PathVariable(value = "id") int accountId, HttpServletRequest req) throws Exception {
-        logger.info("GET request for account with id {}", accountId);
-        Account account = accountService.findAccountById(accountId);
+    public ModelAndView getAccountById(@PathVariable(value = "id") int userId, HttpServletRequest req) throws Exception {
+        logger.info("GET request for account with id {}", userId);
+        Account account = accountService.findAccountById(userId);
         logger.info("account details : {}", account);
         req.getSession().setAttribute("added", "false");
         return new ModelAndView("wallet","account", account);
