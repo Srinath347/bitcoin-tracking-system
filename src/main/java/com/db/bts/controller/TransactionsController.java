@@ -25,13 +25,20 @@ import com.db.bts.entity.Admin;
 import com.db.bts.entity.Audit;
 import com.db.bts.entity.Transaction;
 import com.db.bts.model.TransactionCancelModel;
+import com.db.bts.entity.User;
 import com.db.bts.model.TransactionModel;
 import com.db.bts.model.TransactionSearchModel;
 import com.db.bts.model.TransactionTimeModel;
 import com.db.bts.service.impl.AuditServiceImpl;
 import com.db.bts.service.impl.TransactionServiceImpl;
 
+
 import lombok.NonNull;
+
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/bts/transactions")
@@ -47,9 +54,11 @@ public class TransactionsController {
     private AuditServiceImpl auditService;
     
     @GetMapping("")
-    public ModelAndView buyOrSell() throws Exception {
-        
-        return new ModelAndView("userBuySell");
+    public ModelAndView buyOrSell(HttpSession session) throws Exception {
+        User user=(User)session.getAttribute("user");
+        TransactionModel transactionModel=new TransactionModel();
+        transactionModel.setUserId(user.getId());
+        return new ModelAndView("userBuySell","transaction", transactionModel);
     }
 
     @GetMapping("/transactionHistory")
@@ -74,7 +83,7 @@ public class TransactionsController {
 
 
     @PostMapping("/transaction")
-    public ModelAndView addTransaction(@ModelAttribute TransactionModel transactionDTO) throws Exception {
+    public ModelAndView addTransaction(@ModelAttribute("transaction") TransactionModel transactionDTO) throws Exception {
         Transaction transaction = transactionService.addTransaction(transactionDTO);
         List<Transaction> transactionList = transactionService.getTransactionByUserId(transaction.getUser().getId());
         return new ModelAndView("userTransactionHistory", "transactionList", transactionList);

@@ -21,37 +21,40 @@
 
 </style>
 <body>
+    <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 	<jsp:include page="header.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<section class="mb-4">
 	<div class="container col-md-6 py-5 mt-4">
-	<form>
-	
+	<form:form action="/bts/transactions/transaction" method="POST" modelAttribute="transaction">
+	<form:input type="hidden" path="userId"/>
 	  <div class="form-outline mb-4">
-	    <input type="number" id="bitcoins" class="form-control" placeholder="Enter number of bitcoins" />
-	  </div>
+      	 <form:input type="text" id="amount" class="form-control" placeholder="Enter bitcoins" path="bitcoin"/>
+      </div>
 	
 
 	  
-	  <div class="form-outline mb-4">
-	  	
-         
-          <select id="commissionType" class="form-control">
-          	<option value="" disabled selected hidden>Select option for commission payment</option>
-          	<option value="bitcoin">Bitcoin</option>         
-            <option value="fiat">Fiat currency</option>
+      <div class="form-outline mb-4">
 
-          </select>
+
+          <form:select id="commissionType" class="form-control" path="commissionType">
+          	<option value="" disabled selected hidden>Select option for commission payment</option>
+          	<option value="bitcoin">Bitcoin</option>
+            <option value="fiat currency">Fiat currency</option>
+
+          </form:select>
+
 	  </div>
 	
 	  <div class="form-check buy-radio-button">
-	    <input class="form-check-input" type="radio" name="transactionType" id="buy" value="buy" checked>
+	    <form:radiobutton class="form-check-input" name="transactionType" id="buy" value="buy" path="type" checked="checked"/>
 	  	<label class="form-check-label" for="buy">
 	    	 BUY
 	  	</label>
 	  </div>
 	  <div class="form-check sell-radio-button">
-	  	<input class="form-check-input" type="radio" name="transactionType" id="sell" value="sell">
+	  	<form:radiobutton class="form-check-input" name="transactionType" path="type" id="sell" value="sell"/>
 	  	<label class="form-check-label" for="sell">
 	    	SELL 
 	  	</label>
@@ -60,7 +63,7 @@
 
 	  <!-- Submit button -->
 	  <button type="submit" class="btn btn-dark btn-block mb-4">Submit</button>
-	</form>
+	</form:form>
 	</div>
  	</section>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
