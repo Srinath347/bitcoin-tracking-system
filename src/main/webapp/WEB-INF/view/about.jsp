@@ -48,8 +48,8 @@ body {
                         <div>
                             <h4><FaMapMarkerAlt /> Address </h4>
                             <p class="mb-0">634 Park Avenue</p>
-                            <p class="mb-0">Amsterdam</p>
-                            <p class="mb-0">NY 10012</p>
+                            <p class="mb-0">Dallas</p>
+                            <p class="mb-0">TX 75340</p>
                             <p class="mb-0">United States</p>
                         </div>
                         <div class="mb-3 mt-3">
