@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS membership;
 DROP TABLE IF EXISTS roles;
 
-
+#Test
 
 CREATE TABLE roles
 (
