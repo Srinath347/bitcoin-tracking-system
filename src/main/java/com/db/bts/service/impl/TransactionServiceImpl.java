@@ -14,6 +14,9 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -48,6 +51,9 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private Resilience4JCircuitBreakerFactory circuitBreakerFactory;
     
 
     @Override
@@ -245,7 +251,6 @@ public class TransactionServiceImpl implements TransactionService{
                 transactionTimeModel.setSell(transactionStatistic);
             }
         }
-//        transactionTimeModel.setTransactionStatistics(transactionStatistics);
         transactionTimeModel.setTransactionList(transactions);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         transactionTimeModel.setFrom(dateFormat.format(from));
@@ -287,9 +292,10 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     private float getBitcoinValue() {
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
         RestTemplate restTemplate = new RestTemplate();
         String btcPriceUrl = "https://api.coindesk.com/v1/bpi/currentprice.json";
-        String response = restTemplate.getForObject(btcPriceUrl, String.class);
+        String response = circuitBreaker.run(() -> restTemplate.getForObject(btcPriceUrl, String.class));
         Gson gson = new Gson();
         BitcoinPriceModel bitcoinPriceModel = gson.fromJson(response, BitcoinPriceModel.class);
         float currentValue = bitcoinPriceModel.getBpi().getUSD().getRate_float();
